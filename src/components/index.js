@@ -1,0 +1,11 @@
+import GetStarted from './GetStarted';
+import Shipping from './Shipping';
+import Payment from './Payment';
+import SignupPage from './SignupPage';
+import SigninModal from './SigninModal';
+import IndexPage from './IndexPage';
+import Header from './Header';
+import Footer from './Footer';
+import AboutPage from './AboutPage';
+import HowtoPage from './HowtoPage';
+export {GetStarted, Shipping, Payment, SigninModal, SignupPage, IndexPage ,Header, Footer, AboutPage, HowtoPage};
