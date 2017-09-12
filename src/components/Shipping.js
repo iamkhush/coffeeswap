@@ -19,7 +19,11 @@ class Shipping extends React.Component {
             event.currentTarget.classList.add('roasttype-border');
         };
 
-        this.state = {showEmailError: false}
+        this.state = {
+            error:{
+                email: false
+            }
+        }
 
         this.editAddress = (event) => {
             let inputName = event.currentTarget.name;
@@ -28,9 +32,9 @@ class Shipping extends React.Component {
             if (inputName == 'email'){
                 if (EMAIL_REGEXP.test(address[inputName])) {
                     this.props.saveValues(address);
-                    this.setState({showEmailError: false});
+                    this.setState({error: {showEmailError: false}});
                 } else {
-                    this.setState({showEmailError: true});
+                    this.setState({error: {showEmailError: true}});
                 }
             } else {
                 this.props.saveValues(address);
@@ -42,7 +46,7 @@ class Shipping extends React.Component {
         return (
             <div>
                 <Header h1="Shipping Information" h2={<h3 className="getStartedColor">Tell us where you'd like your coffee delivered: </h3>} />
-                <AddressForm editAddress={this.editAddress} showEmailError={this.state.showEmailError}/>
+                <AddressForm editAddress={this.editAddress} showError={this.state.error}/>
                 <Plans selectPlan={this.selectPlan} />
                 <Footer maxFieldsCount={this.props.maxFieldsCount} currentFieldCount={this.props.currentFieldCount} 
                         maxValuesInThis={this.maxValuesInShipping} 

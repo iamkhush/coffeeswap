@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './SignupComponents/header';
 
-class Profile extends React.Component {
+class ProfilePage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -13,6 +13,7 @@ class Profile extends React.Component {
         // this.handleOption = this.handleOption.bind(this);
         this.setAddressMode = this.setAddressMode.bind(this);
         this.setPlanMode = this.setPlanMode.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }   
 
     setAddressMode(){
@@ -29,6 +30,22 @@ class Profile extends React.Component {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
         this.setState(nextState);
+    }
+
+    handleUpdate() {
+        let address = this.state.address;
+        let plan = this.state.plan;
+        let user = this.props.currentuser;
+        window.alert('username: ' + user);
+        this.props.onUpdate(user, address, plan).then(
+            (success) => {
+                if(!success) {
+                    this.setState({
+                        address: '',
+                    });
+                }
+            }
+        );
     }
     render(){
         const PlanArea = (
@@ -81,7 +98,7 @@ class Profile extends React.Component {
                     <div className="row">
                         <div className="col-lg-2 col-lg-offset-2"><a><h4>Address</h4></a></div>
                         <div className="col-lg-6 col-lg-offset-1 getStartedColor">
-                            <span class="pro_editarea">{this.state.address==""?"Edit Address":this.state.address}</span>
+                            <span className="pro_editarea">{this.state.address==""?"Edit Address":this.state.address}</span>
                             <a className="btn btn-xs btn-filleddefault" onClick={this.setAddressMode}>Edit</a>
                         </div>
                     </div>
@@ -97,10 +114,20 @@ class Profile extends React.Component {
                 <h3 className="text-center getStartedColor">{ this.state.editmode == "address" ? "AddressSetting" : "Payment Plan Settings" }</h3>
                 { this.state.editmode == "address" ? AddressArea : PlanArea }
                 <div className="col-lg-10 col-lg-offset-5 getStartedColor pro_save">
-                    <a href="/" className="btn btn-default2 btn-lg" >Save Changes</a>
+                    <a onClick={this.handleUpdate} className="btn btn-default2 btn-lg" >Save Changes</a>
                 </div>
             </div>            
         )
     }
 }
-export default Profile;
+
+ProfilePage.propTypes = {
+    onUpdate: React.PropTypes.func,
+    currentuser: React.PropTypes.string
+};
+
+ProfilePage.defaultProps = {
+    onUpdate: (username, address, plan) => { console.error("onUpdate not defined"); }
+};
+
+export default ProfilePage;

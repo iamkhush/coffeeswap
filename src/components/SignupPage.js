@@ -5,8 +5,8 @@ import Payment from './Payment'
 
 // import { GetStarted, Shipping, Payment } from 'components';
 class SignupPage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.fieldValues = {};
         this.maxFieldsCount = 12;
 
@@ -37,6 +37,7 @@ class SignupPage extends React.Component {
           })
           window.scroll(0,0);
         };
+
     }
 
     render() {
@@ -57,18 +58,20 @@ class SignupPage extends React.Component {
             case 3:
                 return <Payment fieldValues={this.fieldValues}                                  
                                  previousStep={this.previousStep}
-                                 saveValues={this.saveValues} />
+                                 saveValues={this.saveValues}
+                                 onLogin={this.props.onLogin} />
         }
     }
 
 }
 
-// Signup.propTypes = {
-//  headerMessage: React.propTypes.string
-// };
+SignupPage.propTypes = {
+  onLogin: React.PropTypes.func,
+};
 
-// Signup.defaultProps = {
-//  headerMessage: 'Hello'
-// };
+SignupPage.defaultProps = {
+  onLogin: (id, pw) => { console.error("onLogin not defined"); },
+};
+
 
 export default SignupPage;

@@ -8,7 +8,11 @@ import {
     AUTH_GET_STATUS,
     AUTH_GET_STATUS_SUCCESS,
     AUTH_GET_STATUS_FAILURE,
-    AUTH_LOGOUT
+    AUTH_LOGOUT,
+    AUTH_UPDATE,
+    AUTH_UPDATE_SUCCESS,
+    AUTH_UPDATE_FAILURE,
+
 } from './ActionTypes';
 
 import axios from 'axios';
@@ -149,5 +153,39 @@ export function logoutRequest() {
 export function logout() {
     return {
         type: AUTH_LOGOUT
+    };
+}
+
+/* UPDATE */
+export function updateRequest(username, address, plan) {
+    return (dispatch) => {
+        // Inform update API is starting
+        dispatch(update());
+
+        return axios.post('/api/account/update', { username, address, plan })
+        .then((response) => {
+            dispatch(updateSuccess());
+        }).catch((error) => {
+            dispatch(updateFailure(error.response.data.code));
+        });
+    };
+}
+
+export function update() {
+    return {
+        type: AUTH_UPDATE
+    };
+}
+
+export function updateSuccess() {
+    return {
+        type: AUTH_UPDATE_SUCCESS,
+    };
+}
+
+export function updateFailure(error) {
+    return {
+        type: AUTH_UPDATE_FAILURE,
+        error
     };
 }

@@ -11,5 +11,5 @@ npm run development
 running at localhost:4000
 
 ### Product
-npm run product
+npm run start
 running at localhost:3000

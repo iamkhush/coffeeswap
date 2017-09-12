@@ -128,4 +128,27 @@ router.post('/logout', (req, res) => {
     return res.json({ sucess: true });
 });
 
+
+
+router.post('/update', (req, res) => {
+    // CHECK USER EXISTANCE
+    Account.findOne({ username: req.body.username }, (err, exists) => {
+        if (err) throw err;
+        if(!exists){
+            return res.status(409).json({
+                error: "USER NOT EXISTS",
+                code: 3
+            });
+        }
+
+        exists.plan = req.body.plan;
+        exists.address = req.body.address;
+        // SAVE IN THE DATABASE
+        exists.save( err => {
+            if(err) throw err;
+            return res.json({ success: true });
+        });
+
+    });
+});
 export default router;

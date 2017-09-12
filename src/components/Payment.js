@@ -5,8 +5,9 @@ import Header from './SignupComponents/header'
 import Footer from './SignupComponents/footer'
 import CreditCardForm from './SignupComponents/cardDetails'
 
+// import loginRequest from '../actions/authentication';
 
-const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep }) => {
+const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep, onLogin }) => {
 	const payAndSignup = (token) => {
         
 
@@ -17,16 +18,27 @@ const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep }) => {
         .then((success) => {
             console.log(success);
             fieldValues = saveValues({'charge_id': success.data.id});
+            var id = fieldValues.username;
+            var pw = fieldValues.password;
             axios.post('/api/payment/userSignup', fieldValues)
                 .then((response) => {
-                    window.alert('welcome');
+                    window.alert('Successfuly Signup!');
                     window.console.log(response);
-                    window.location = '/home';
+                    onLogin(id, pw).then(
+                        (success) => {
+                            if(success) {
+                                window.location = '/profile'
+                            } else {
+                                window.alert(success);
+                            }
+                        }
+                    );
+                    //window.location = '/profile';
                 })
                 .catch((error)=>{
                     window.alert('User Signup Failure!');
                     window.console.log(error);
-                    window.location = '/home';
+                    //window.location = '/home';
                 })
 
         })

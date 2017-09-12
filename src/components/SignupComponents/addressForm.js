@@ -90,7 +90,7 @@ class Address extends React.Component {
 	                	<label  htmlFor="email" className="getStartedColor col-3 col-form-label">Email Address</label>
 	                    <div className="col-3">
 	                    	<input onChange={this.props.editAddress} className="form-control" type="text" name="email" id="example-text-input" required />
-	                    	<span style={{color:'red', display:this.props.showEmailError?'block':'none'}}>Please provide valid email</span>
+	                    	<span style={{color:'red', display:this.props.showError.showEmailError?'block':'none'}}>Please provide valid email</span>
 	                    </div> 
 	                	<label  htmlFor="city" className="getStartedColor col-3 col-form-label">City</label>
 	                	<div className="col-3">

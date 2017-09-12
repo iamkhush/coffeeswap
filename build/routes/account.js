@@ -141,4 +141,24 @@ router.post('/logout', function (req, res) {
     return res.json({ sucess: true });
 });
 
+router.post('/update', function (req, res) {
+    // CHECK USER EXISTANCE
+    _account2.default.findOne({ username: req.body.username }, function (err, exists) {
+        if (err) throw err;
+        if (!exists) {
+            return res.status(409).json({
+                error: "USER NOT EXISTS",
+                code: 3
+            });
+        }
+
+        exists.plan = req.body.plan;
+        exists.address = req.body.address;
+        // SAVE IN THE DATABASE
+        exists.save(function (err) {
+            if (err) throw err;
+            return res.json({ success: true });
+        });
+    });
+});
 exports.default = router;

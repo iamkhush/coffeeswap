@@ -28287,7 +28287,11 @@
 	            event.currentTarget.classList.add('roasttype-border');
 	        };
 
-	        _this.state = { showEmailError: false };
+	        _this.state = {
+	            error: {
+	                email: false
+	            }
+	        };
 
 	        _this.editAddress = function (event) {
 	            var inputName = event.currentTarget.name;
@@ -28296,9 +28300,9 @@
 	            if (inputName == 'email') {
 	                if (EMAIL_REGEXP.test(address[inputName])) {
 	                    _this.props.saveValues(address);
-	                    _this.setState({ showEmailError: false });
+	                    _this.setState({ error: { showEmailError: false } });
 	                } else {
-	                    _this.setState({ showEmailError: true });
+	                    _this.setState({ error: { showEmailError: true } });
 	                }
 	            } else {
 	                _this.props.saveValues(address);
@@ -28318,7 +28322,7 @@
 	                        { className: 'getStartedColor' },
 	                        'Tell us where you\'d like your coffee delivered: '
 	                    ) }),
-	                _react2.default.createElement(_addressForm2.default, { editAddress: this.editAddress, showEmailError: this.state.showEmailError }),
+	                _react2.default.createElement(_addressForm2.default, { editAddress: this.editAddress, showError: this.state.error }),
 	                _react2.default.createElement(_plans2.default, { selectPlan: this.selectPlan }),
 	                _react2.default.createElement(_footer2.default, { maxFieldsCount: this.props.maxFieldsCount, currentFieldCount: this.props.currentFieldCount,
 	                    maxValuesInThis: this.maxValuesInShipping,
@@ -28715,7 +28719,7 @@
 								_react2.default.createElement('input', { onChange: this.props.editAddress, className: 'form-control', type: 'text', name: 'email', id: 'example-text-input', required: true }),
 								_react2.default.createElement(
 									'span',
-									{ style: { color: 'red', display: this.props.showEmailError ? 'block' : 'none' } },
+									{ style: { color: 'red', display: this.props.showError.showEmailError ? 'block' : 'none' } },
 									'Please provide valid email'
 								)
 							),
@@ -30232,11 +30236,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// import loginRequest from '../actions/authentication';
+
 	var PaymentForm = function PaymentForm(_ref) {
 	    var fieldValues = _ref.fieldValues,
 	        nextStep = _ref.nextStep,
 	        saveValues = _ref.saveValues,
-	        prevStep = _ref.prevStep;
+	        prevStep = _ref.prevStep,
+	        onLogin = _ref.onLogin;
 
 	    var payAndSignup = function payAndSignup(token) {
 
@@ -30246,14 +30253,23 @@
 	        _axios2.default.post('/api/payment/chargePayment', { token: token }).then(function (success) {
 	            console.log(success);
 	            fieldValues = saveValues({ 'charge_id': success.data.id });
+	            var id = fieldValues.username;
+	            var pw = fieldValues.password;
 	            _axios2.default.post('/api/payment/userSignup', fieldValues).then(function (response) {
 	                window.alert('welcome');
 	                window.console.log(response);
-	                window.location = '/home';
+	                onLogin(id, pw).then(function (success) {
+	                    if (success) {
+	                        window.location = '/profile';
+	                    } else {
+	                        window.alert('aaa');
+	                    }
+	                });
+	                //window.location = '/profile';
 	            }).catch(function (error) {
 	                window.alert('User Signup Failure!');
 	                window.console.log(error);
-	                window.location = '/home';
+	                //window.location = '/home';
 	            });
 	        }).catch(function (error) {
 	            window.alert('User Payment Failure!');
@@ -32494,10 +32510,10 @@
 	var SignupPage = function (_React$Component) {
 	  _inherits(SignupPage, _React$Component);
 
-	  function SignupPage() {
+	  function SignupPage(props) {
 	    _classCallCheck(this, SignupPage);
 
-	    var _this = _possibleConstructorReturn(this, (SignupPage.__proto__ || Object.getPrototypeOf(SignupPage)).call(this));
+	    var _this = _possibleConstructorReturn(this, (SignupPage.__proto__ || Object.getPrototypeOf(SignupPage)).call(this, props));
 
 	    _this.fieldValues = {};
 	    _this.maxFieldsCount = 12;
@@ -32527,6 +32543,7 @@
 	      });
 	      window.scroll(0, 0);
 	    };
+
 	    return _this;
 	  }
 
@@ -32550,7 +32567,8 @@
 	        case 3:
 	          return _react2.default.createElement(_Payment2.default, { fieldValues: this.fieldValues,
 	            previousStep: this.previousStep,
-	            saveValues: this.saveValues });
+	            saveValues: this.saveValues,
+	            onLogin: this.props.onLogin });
 	      }
 	    }
 	  }]);
@@ -32558,13 +32576,15 @@
 	  return SignupPage;
 	}(_react2.default.Component);
 
-	// Signup.propTypes = {
-	//  headerMessage: React.propTypes.string
-	// };
+	SignupPage.propTypes = {
+	  onLogin: _react2.default.PropTypes.func
+	};
 
-	// Signup.defaultProps = {
-	//  headerMessage: 'Hello'
-	// };
+	SignupPage.defaultProps = {
+	  onLogin: function onLogin(id, pw) {
+	    console.error("onLogin not defined");
+	  }
+	};
 
 	exports.default = SignupPage;
 
@@ -32798,9 +32818,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// import AthletePreview from './AthletePreview';
-	// import athletes from '../data/athletes';
 
 	var IndexPage = function (_React$Component) {
 	    _inherits(IndexPage, _React$Component);
@@ -33067,7 +33084,7 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                "a",
-	                                { href: "interests.html", className: "btn btn-default btn-lg" },
+	                                { href: "/signup", className: "btn btn-default btn-lg" },
 	                                "Find a friend >"
 	                            )
 	                        ),
@@ -33103,7 +33120,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    "a",
-	                                    { href: "interests.html", className: "btn btn-default btn-lg" },
+	                                    { href: "/signup", className: "btn btn-default btn-lg" },
 	                                    "Give the Gift"
 	                                )
 	                            )
@@ -36209,6 +36226,10 @@
 	exports.getStatusFailure = getStatusFailure;
 	exports.logoutRequest = logoutRequest;
 	exports.logout = logout;
+	exports.updateRequest = updateRequest;
+	exports.update = update;
+	exports.updateSuccess = updateSuccess;
+	exports.updateFailure = updateFailure;
 
 	var _ActionTypes = __webpack_require__(330);
 
@@ -36352,6 +36373,39 @@
 	    };
 	}
 
+	/* UPDATE */
+	function updateRequest(username, address, plan) {
+	    return function (dispatch) {
+	        // Inform update API is starting
+	        dispatch(update());
+
+	        return _axios2.default.post('/api/account/update', { username: username, address: address, plan: plan }).then(function (response) {
+	            dispatch(updateSuccess());
+	        }).catch(function (error) {
+	            dispatch(updateFailure(error.response.data.code));
+	        });
+	    };
+	}
+
+	function update() {
+	    return {
+	        type: _ActionTypes.AUTH_UPDATE
+	    };
+	}
+
+	function updateSuccess() {
+	    return {
+	        type: _ActionTypes.AUTH_UPDATE_SUCCESS
+	    };
+	}
+
+	function updateFailure(error) {
+	    return {
+	        type: _ActionTypes.AUTH_UPDATE_FAILURE,
+	        error: error
+	    };
+	}
+
 /***/ }),
 /* 330 */
 /***/ (function(module, exports) {
@@ -36374,6 +36428,10 @@
 	var AUTH_GET_STATUS = exports.AUTH_GET_STATUS = "AUTH_GET_STATUS";
 	var AUTH_GET_STATUS_SUCCESS = exports.AUTH_GET_STATUS_SUCCESS = "AUTH_GET_STATUS_SUCCESS";
 	var AUTH_GET_STATUS_FAILURE = exports.AUTH_GET_STATUS_FAILURE = "AUTH_GET_STATUS_FAILURE";
+
+	var AUTH_UPDATE = exports.AUTH_UPDATE = "AUTH_UPDATE";
+	var AUTH_UPDATE_SUCCESS = exports.AUTH_UPDATE_SUCCESS = "AUTH_UPDATE_SUCCESS";
+	var AUTH_UPDATE_FAILURE = exports.AUTH_UPDATE_FAILURE = "AUTH_UPDATE_FAILURE";
 
 	var AUTH_LOGOUT = exports.AUTH_LOGOUT = "AUTH_LOGOUT";
 
@@ -36444,13 +36502,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(38);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
 	var _SignupPage = __webpack_require__(284);
 
 	var _SignupPage2 = _interopRequireDefault(_SignupPage);
+
+	var _reactRedux = __webpack_require__(292);
+
+	var _authentication = __webpack_require__(329);
+
+	var _reactRouter = __webpack_require__(185);
+
+	var _axios = __webpack_require__(256);
+
+	var _axios2 = _interopRequireDefault(_axios);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36463,23 +36527,68 @@
 	var Signup = function (_React$Component) {
 	    _inherits(Signup, _React$Component);
 
-	    function Signup() {
+	    function Signup(props) {
 	        _classCallCheck(this, Signup);
 
-	        return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
+
+	        _this.handleLogin = _this.handleLogin.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(Signup, [{
+	        key: 'handleLogin',
+	        value: function handleLogin(id, pw) {
+	            var _this2 = this;
+
+	            return this.props.loginRequest(id, pw).then(function () {
+	                if (_this2.props.status === "SUCCESS") {
+	                    var loginData = {
+	                        isLoggedIn: true,
+	                        username: id
+	                    };
+
+	                    document.cookie = 'key=' + btoa(JSON.stringify(loginData));
+	                    window.alert('Welcome');
+
+	                    //Materialize.toast('Welcome ' + id + '!', 2000);
+	                    // window.alert('Welcome' + Response)
+	                    // browserHistory.push('/');
+	                    window.location = "/home";
+	                    return true;
+	                } else {
+	                    window.alert('Login Failure');
+	                    return false;
+	                }
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_SignupPage2.default, null);
+	            return _react2.default.createElement(_SignupPage2.default, { onLogin: this.handleLogin });
 	        }
 	    }]);
 
 	    return Signup;
 	}(_react2.default.Component);
 
-	exports.default = Signup;
+	//export default Signup;
+
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        status: state.authentication.login.status
+	    };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        loginRequest: function loginRequest(id, pw) {
+	            return dispatch((0, _authentication.loginRequest)(id, pw));
+	        }
+	    };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Signup);
 
 /***/ }),
 /* 333 */
@@ -36505,6 +36614,16 @@
 
 	var _ProfilePage2 = _interopRequireDefault(_ProfilePage);
 
+	var _reactRedux = __webpack_require__(292);
+
+	var _authentication = __webpack_require__(329);
+
+	var _reactRouter = __webpack_require__(185);
+
+	var _axios = __webpack_require__(256);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36516,23 +36635,58 @@
 	var Profile = function (_React$Component) {
 	    _inherits(Profile, _React$Component);
 
-	    function Profile() {
+	    function Profile(props) {
 	        _classCallCheck(this, Profile);
 
-	        return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+
+	        _this.handleUpdate = _this.handleUpdate.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(Profile, [{
+	        key: 'handleUpdate',
+	        value: function handleUpdate(username, address, plan) {
+	            var _this2 = this;
+
+	            return this.props.updateRequest(username, address, plan).then(function () {
+	                if (_this2.props.status === "SUCCESS") {
+
+	                    window.alert('Updated successfully');
+
+	                    window.location = "/home";
+	                    return true;
+	                } else {
+	                    window.alert('Update Failure');
+	                    return false;
+	                }
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_ProfilePage2.default, null);
+	            return _react2.default.createElement(_ProfilePage2.default, { onUpdate: this.handleUpdate });
 	        }
 	    }]);
 
 	    return Profile;
 	}(_react2.default.Component);
 
-	exports.default = Profile;
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        status: state.authentication.updated.status
+	    };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        updateRequest: function updateRequest(username, address, plan) {
+	            return dispatch((0, _authentication.updateRequest)(username, address, plan));
+	        }
+	    };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Profile);
 
 /***/ }),
 /* 334 */
@@ -36562,13 +36716,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Profile = function (_React$Component) {
-	    _inherits(Profile, _React$Component);
+	var ProfilePage = function (_React$Component) {
+	    _inherits(ProfilePage, _React$Component);
 
-	    function Profile(props) {
-	        _classCallCheck(this, Profile);
+	    function ProfilePage(props) {
+	        _classCallCheck(this, ProfilePage);
 
-	        var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (ProfilePage.__proto__ || Object.getPrototypeOf(ProfilePage)).call(this, props));
 
 	        _this.state = {
 	            editmode: "plan",
@@ -36579,10 +36733,11 @@
 	        // this.handleOption = this.handleOption.bind(this);
 	        _this.setAddressMode = _this.setAddressMode.bind(_this);
 	        _this.setPlanMode = _this.setPlanMode.bind(_this);
+	        _this.handleUpdate = _this.handleUpdate.bind(_this);
 	        return _this;
 	    }
 
-	    _createClass(Profile, [{
+	    _createClass(ProfilePage, [{
 	        key: 'setAddressMode',
 	        value: function setAddressMode() {
 	            this.setState({
@@ -36602,6 +36757,22 @@
 	            var nextState = {};
 	            nextState[e.target.name] = e.target.value;
 	            this.setState(nextState);
+	        }
+	    }, {
+	        key: 'handleUpdate',
+	        value: function handleUpdate() {
+	            var _this2 = this;
+
+	            var address = this.state.address;
+	            var plan = this.state.plan;
+
+	            this.props.onUpdate('caesar', address, plan).then(function (success) {
+	                if (!success) {
+	                    _this2.setState({
+	                        address: ''
+	                    });
+	                }
+	            });
 	        }
 	    }, {
 	        key: 'render',
@@ -36715,7 +36886,7 @@
 	                            { className: 'col-lg-6 col-lg-offset-1 getStartedColor' },
 	                            _react2.default.createElement(
 	                                'span',
-	                                { 'class': 'pro_editarea' },
+	                                { className: 'pro_editarea' },
 	                                this.state.address == "" ? "Edit Address" : this.state.address
 	                            ),
 	                            _react2.default.createElement(
@@ -36765,7 +36936,7 @@
 	                    { className: 'col-lg-10 col-lg-offset-5 getStartedColor pro_save' },
 	                    _react2.default.createElement(
 	                        'a',
-	                        { href: '/', className: 'btn btn-default2 btn-lg' },
+	                        { onClick: this.handleUpdate, className: 'btn btn-default2 btn-lg' },
 	                        'Save Changes'
 	                    )
 	                )
@@ -36773,10 +36944,20 @@
 	        }
 	    }]);
 
-	    return Profile;
+	    return ProfilePage;
 	}(_react2.default.Component);
 
-	exports.default = Profile;
+	ProfilePage.propTypes = {
+	    onUpdate: _react2.default.PropTypes.func
+	};
+
+	ProfilePage.defaultProps = {
+	    onUpdate: function onUpdate(username, address, plan) {
+	        console.error("onUpdate not defined");
+	    }
+	};
+
+	exports.default = ProfilePage;
 
 /***/ }),
 /* 335 */
@@ -37068,6 +37249,10 @@
 	        valid: false,
 	        isLoggedIn: false,
 	        currentUser: ''
+	    },
+	    updated: {
+	        status: 'INIT',
+	        error: -1
 	    }
 	};
 
@@ -37134,18 +37319,41 @@
 	        case types.AUTH_GET_STATUS_FAILURE:
 	            return (0, _reactAddonsUpdate2.default)(state, {
 	                status: {
-	                    valid: { $set: false },
-	                    isLoggedIn: { $set: false }
+	                    status: { $set: false },
+	                    error: { $set: false }
 	                }
 	            });
 	        /* LOGOUT */
 	        case types.AUTH_LOGOUT:
 	            return (0, _reactAddonsUpdate2.default)(state, {
 	                status: {
-	                    isLoggedIn: { $set: false },
+	                    status: { $set: false },
 	                    currentUser: { $set: '' }
 	                }
 	            });
+
+	        /* UPDATE */
+	        case types.AUTH_UPDATE:
+	            return (0, _reactAddonsUpdate2.default)(state, {
+	                updated: {
+	                    status: { $set: 'WAITING' },
+	                    error: { $set: -1 }
+	                }
+	            });
+	        case types.AUTH_UPDATE_SUCCESS:
+	            return (0, _reactAddonsUpdate2.default)(state, {
+	                updated: {
+	                    status: { $set: 'SUCCESS' }
+	                }
+	            });
+	        case types.AUTH_UPDATE_FAILURE:
+	            return (0, _reactAddonsUpdate2.default)(state, {
+	                updated: {
+	                    status: { $set: 'FAILURE' },
+	                    error: { $set: action.error }
+	                }
+	            });
+
 	        default:
 	            return state;
 	    }
