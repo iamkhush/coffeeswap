@@ -10,7 +10,7 @@ class Address extends React.Component {
 			<section style={{marginLeft:'10%',marginRight:'10%',marginBottom:'10%'}}>
 		        <div className="col-lg-2 col-lg-offset-3">
 		            <div className="form-group row">
-			            <label htmlFor="username" className="getStartedColor col-3 col-form-label">FullName</label>
+			            <label htmlFor="username" className="getStartedColor col-3 col-form-label">Full Name</label>
 			            <div className="col-3">
 			                <input onChange={this.props.editAddress} className="form-control" name="username" type="text" id="example-text-input" required />
 			            </div>
