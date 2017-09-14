@@ -12,7 +12,7 @@ const CardDetails = ({payAndSignup, selectedPlan}) => {
                     <h3 className="getStartedColor">
                         <i style={{marginTop:'15px'}} className="getStartedColor fa fa-lg fa-shopping-cart"></i>
                     Your Cart:</h3>
-                    if (selectedPlan == 'monthly') ? <MonthlyPlan /> : <YearlyPlan />;
+                    { selectedPlan == 'monthly' ? <MonthlyPlan /> : <YearlyPlan /> }
                     <div className="row" style={{padding:'30px',marginLeft:'10%',marginRight:'10%'}}>
                         <div className="col-lg-10 col-lg-offset-3">
                             <StripeCheckout stripeKey="pk_test_F835qhEb8KN4AukSKeK2BMbQ" token={payAndSignup} >

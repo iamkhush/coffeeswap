@@ -38,6 +38,11 @@ class SignupPage extends React.Component {
           window.scroll(0,0);
         };
 
+        this.randomSelection = (event) => {
+          this.saveValues({roastLocation:'Africa', roastByDate:2, roastType:'medium'});
+          this.nextStep();
+        }
+
     }
 
     render() {
@@ -47,7 +52,8 @@ class SignupPage extends React.Component {
                                     nextStep={this.nextStep}
                                     saveValues={this.saveValues}
                                     currentFieldCount={this.state.count}
-                                    maxFieldsCount={this.maxFieldsCount} />
+                                    maxFieldsCount={this.maxFieldsCount}
+                                    randomSelection={this.randomSelection} />
             case 2:
                 return <Shipping fieldValues={this.fieldValues} 
                                  nextStep={this.nextStep}

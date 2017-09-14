@@ -18,7 +18,7 @@ class Profile extends React.Component{
     
                     window.alert('Updated successfully');
 
-                    window.location = "/home";
+                    // window.location = "/home";
                     return true;
                 } else {
                     window.alert('Update Failure');

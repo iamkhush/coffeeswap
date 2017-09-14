@@ -10,7 +10,7 @@ const router = express.Router();
     ERROR CODES:
         1: BAD USERNAME
         2: BAD PASSWORD
-        3: USERNAM EXISTS
+        3: USERNAME EXISTS
 */
 router.post('/signup', (req, res) => {
     // CHECK USERNAME FORMAT

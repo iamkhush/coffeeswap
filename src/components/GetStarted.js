@@ -7,7 +7,7 @@ import Header from './SignupComponents/header'
 import Footer from './SignupComponents/footer'
 
 
-const getStarted = ({ fieldValues, nextStep, saveValues, currentFieldCount, maxFieldsCount }) => {
+const getStarted = ({ fieldValues, nextStep, saveValues, currentFieldCount, maxFieldsCount, randomSelection }) => {
     const maxValuesInGetStarted = 3;
 
     const selectType = (event) => {
@@ -28,11 +28,12 @@ const getStarted = ({ fieldValues, nextStep, saveValues, currentFieldCount, maxF
         event.currentTarget.classList.add('roasttype-border');
     }
 
-    const randomSelection = (event) => console.log(event);
-
     return (
         <div>
-            <Header h1="Get Started" h2={<div><p>First, complete these three steps to tell us about your coffee preferences.</p><a onClick={randomSelection} href="#"> Not sure or want a surprise? Click here to choose default settings ></a></div>} />
+            <Header h1="Get Started" h2={
+                <div><p>First, complete these three steps to tell us about your coffee preferences.</p>
+                <a onClick={randomSelection}> Not sure or want a surprise? Click here to choose default settings</a>
+                </div>} />
             <form method="GET" action="/shipping">
                 <RoastTypeForm selectType={selectType} />            
                 <br />

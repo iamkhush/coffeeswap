@@ -70,19 +70,17 @@ class App extends React.Component {
             );
         }
         render() {
-            /* Check whether current route is login or register using regex */
-            let re = /(login|register)/;
+            // Dont show header while signup
+            let re = /(signup)/;
             let isAuth = re.test(this.props.location.pathname);
     
             return (
                 <div>
-                    {/* {isAuth ? undefined : <Header isLoggedIn={this.props.status.isLoggedIn}
-                                                onLogout={this.handleLogout}/>} */}
-                    <Header 
+                    {isAuth ? undefined : <Header 
                         isLoggedIn={this.props.status.isLoggedIn}
                         currentuser = {this.props.status.currentUser}
                         onLogout = {this.handleLogout}
-                    />
+                    /> }    
                     <div className="hd-mr">{ this.props.children }</div>
                     <Signin />
                     <Footer />

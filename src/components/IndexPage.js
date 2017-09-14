@@ -40,26 +40,26 @@ export default class IndexPage extends React.Component {
                 <div className="row a-r">
                     <div className="col-md-3">
                         <div className="thumbnail a-th">
-                            <h4><a href="/help"><img className="img-circle image-responsive a-i" src="img/letter-coffee-1.jpg"></img></a></h4>
-                            <div className="caption">
-                                Connect with New People
-                            </div>
+                            <h4>
+                                <a href="/help"><img className="img-circle image-responsive a-i" src="img/letter-coffee-1.jpg"></img></a>
+                                <div className="caption">Connect with New People</div>
+                            </h4>
                         </div>
                     </div>
                     <div className="col-md-6">
                         <div className="thumbnail a-th">
-                            <h4><a href="/help"><img className="img-circle image-responsive a-i" src="img/ian-baldwin-cafe.jpg"></img></a></h4>
-                            <div className="caption">
-                                Discover New Places
-                            </div>
+                            <h4>
+                                <a href="/help"><img className="img-circle image-responsive a-i" src="img/ian-baldwin-cafe.jpg"></img></a>
+                                <div className="caption">Discover New Places</div>
+                            </h4>
                         </div>
                     </div>
                     <div className="col-md-3">
                         <div className="thumbnail a-th">
-                            <h4><a href="/help"><img className="img-circle image-responsive a-i" src="img/bo-smith-33504.jpg"></img></a></h4>
-                            <div className="caption">
-                                Taste New Roasters
-                            </div>
+                            <h4>
+                                <a href="/help"><img className="img-circle image-responsive a-i" src="img/bo-smith-33504.jpg"></img></a>
+                                <div className="caption">Taste New Roasters</div>
+                            </h4>
                         </div>
                     </div>
                 </div>

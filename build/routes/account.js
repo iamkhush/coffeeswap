@@ -22,7 +22,7 @@ var router = _express2.default.Router();
     ERROR CODES:
         1: BAD USERNAME
         2: BAD PASSWORD
-        3: USERNAM EXISTS
+        3: USERNAME EXISTS
 */
 router.post('/signup', function (req, res) {
     // CHECK USERNAME FORMAT
