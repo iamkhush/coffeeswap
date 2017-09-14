@@ -1,13 +1,17 @@
 import React from 'react';
+import update from 'react-addons-update';
 
 import Header from './SignupComponents/header'
 import Footer from './SignupComponents/footer'
 import AddressForm from './SignupComponents/addressForm'
 import Plans from './SignupComponents/plans'
 
+const FULLNAME_REGEXP = /^([A-Za-z']+(-| )?)+$/;
+const PASSWORD_REGEXP = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 const EMAIL_REGEXP = new RegExp('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]' +
     '{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
-
+const ZIPCODE_REGEXP = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
+    
 class Shipping extends React.Component {
     constructor(props) {
         super(props);
@@ -21,7 +25,10 @@ class Shipping extends React.Component {
 
         this.state = {
             error:{
-                email: false
+                username: false,
+                password: false,
+                email: false,
+                zipcode: false,
             }
         }
 
@@ -32,11 +39,71 @@ class Shipping extends React.Component {
             if (inputName == 'email'){
                 if (EMAIL_REGEXP.test(address[inputName])) {
                     this.props.saveValues(address);
-                    this.setState({error: {showEmailError: false}});
+                    this.setState({
+                        error: update(this.state.error, {
+                            email: { $set: false }
+                        })
+                    })
                 } else {
-                    this.setState({error: {showEmailError: true}});
+                    // this.setState({error: {email: true}});
+                    this.setState({
+                        error: update(this.state.error, {
+                            email: { $set: true }
+                        })
+                    })
                 }
-            } else {
+            } else if(inputName == 'zipcode'){
+                if (ZIPCODE_REGEXP.test(address[inputName])) {
+                    this.props.saveValues(address);
+                    // this.setState({error: {zipcode: false}});
+                    this.setState({
+                        error: update(this.state.error, {
+                            zipcode: { $set: false }
+                        })
+                    })
+                } else {
+                    // this.setState({error: {zipcode: true}});
+                    this.setState({
+                        error: update(this.state.error, {
+                            zipcode: { $set: true }
+                        })
+                    })
+                }
+            }else if(inputName == 'username'){
+                if (FULLNAME_REGEXP.test(address[inputName])) {
+                    this.props.saveValues(address);
+                    // this.setState({error: {zipcode: false}});
+                    this.setState({
+                        error: update(this.state.error, {
+                            username: { $set: false }
+                        })
+                    })
+                } else {
+                    // this.setState({error: {zipcode: true}});
+                    this.setState({
+                        error: update(this.state.error, {
+                            username: { $set: true }
+                        })
+                    })
+                }                
+            }else if (inputName == 'password'){
+                if (PASSWORD_REGEXP.test(address[inputName])) {
+                    this.props.saveValues(address);
+                    // this.setState({error: {zipcode: false}});
+                    this.setState({
+                        error: update(this.state.error, {
+                            password: { $set: false }
+                        })
+                    })
+                } else {
+                    // this.setState({error: {zipcode: true}});
+                    this.setState({
+                        error: update(this.state.error, {
+                            password: { $set: true }
+                        })
+                    })
+                }
+            }else{
                 this.props.saveValues(address);
             }
         };

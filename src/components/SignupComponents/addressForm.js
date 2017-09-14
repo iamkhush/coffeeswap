@@ -13,11 +13,13 @@ class Address extends React.Component {
 			            <label htmlFor="username" className="getStartedColor col-3 col-form-label">Full Name</label>
 			            <div className="col-3">
 			                <input onChange={this.props.editAddress} className="form-control" name="username" type="text" id="example-text-input" required />
-			            </div>
+							<span style={{color:'red', display:this.props.showError.username?'block':'none'}}>Please input only Enlish Letters</span>
+						</div>
 			            <label htmlFor="password" className="getStartedColor col-3 col-form-label">Password</label>
 			            <div className="col-3">
 			                <input onChange={this.props.editAddress} className="form-control" name="password" type="text" id="example-text-input" required  />
-			            </div>                
+							<span style={{color:'red', display:this.props.showError.password?'block':'none'}}>Please input at least 8 charaters with one uppercase, one suppercase and one number</span>
+						</div>                
 			            <label htmlFor="address" className="getStartedColor col-3 col-form-label">Street Address</label>
 			            <div className="col-3">
 			                <input onChange={this.props.editAddress} className="form-control" type="text" name="address" id="example-text-input" required />
@@ -90,7 +92,7 @@ class Address extends React.Component {
 	                	<label  htmlFor="email" className="getStartedColor col-3 col-form-label">Email Address</label>
 	                    <div className="col-3">
 	                    	<input onChange={this.props.editAddress} className="form-control" type="text" name="email" id="example-text-input" required />
-	                    	<span style={{color:'red', display:this.props.showError.showEmailError?'block':'none'}}>Please provide valid email</span>
+	                    	<span style={{color:'red', display:this.props.showError.email?'block':'none'}}>Please provide valid email</span>
 	                    </div> 
 	                	<label  htmlFor="city" className="getStartedColor col-3 col-form-label">City</label>
 	                	<div className="col-3">
@@ -99,6 +101,7 @@ class Address extends React.Component {
 	                	<label  htmlFor="zipcode" className="getStartedColor col-3 col-form-label"> Zip Code</label>
 	                	<div className="col-3">
 	                		<input onChange={this.props.editAddress} className="form-control" name="zipcode" type="text" id="example-text-input" required />
+							<span style={{color:'red', display:this.props.showError.zipcode?'block':'none'}}>Please provide valid zipcode</span>
 	                	</div>
 	                	<label  htmlFor="country" className="getStartedColor col-3 col-form-label">Country</label>
 	            		<div className="col-3">
