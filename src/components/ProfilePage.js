@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './SignupComponents/header';
-
+import { connect } from 'react-redux';
+import axios from 'axios';
 class ProfilePage extends React.Component {
     constructor(props){
         super(props);
@@ -14,7 +15,30 @@ class ProfilePage extends React.Component {
         this.setAddressMode = this.setAddressMode.bind(this);
         this.setPlanMode = this.setPlanMode.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
-    }   
+
+        
+    }
+
+    // componentDidMount(){
+        
+    //     window.alert(this.props.thisuser);
+    //     axios.post('/api/account/getprofileinfo', {username: this.props.currentuser})
+    //     .then((response) => {
+    //         window.alert('Successfuly GetInfo!');
+    //         window.console.log("userinfo: "+ response.data.info);
+    //         this.setState({
+    //             editmode: "plan",
+    //             address: response.data.info.address,
+    //             plan: response.data.info.plan,
+    //         });
+    //     })
+    //     .catch((error)=>{
+    //         window.alert('Get User Info Failure!');
+    //         window.console.log(error);
+    //         //window.location = '/home';
+    //     })
+
+    // }
 
     setAddressMode(){
         this.setState({
@@ -123,11 +147,18 @@ class ProfilePage extends React.Component {
 
 ProfilePage.propTypes = {
     onUpdate: React.PropTypes.func,
-    currentuser: React.PropTypes.string
+    currentuser: React.PropTypes.string    
 };
 
 ProfilePage.defaultProps = {
     onUpdate: (username, address, plan) => { console.error("onUpdate not defined"); }
 };
 
-export default ProfilePage;
+const mapStateToProps = (state, currentuser) => {
+    return {
+        thisuser: state.authentication.status.currentUser
+    };
+};
+
+// export default ProfilePage;
+export default connect(mapStateToProps)(ProfilePage);

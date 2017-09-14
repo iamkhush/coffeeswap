@@ -129,7 +129,32 @@ router.post('/logout', (req, res) => {
 });
 
 
+router.post('/getprofileinfo', (req, res) => {
+    console.log('profileinfo:')
+    Account.findOne({ username: req.body.username }, (err, exists) => {
+        if (err) throw err;
+        if(!exists){
+            return res.status(409).json({
+                error: "USER NOT EXISTS",
+                code: 3
+            });
+        }
 
+        // exists.plan = req.body.plan;
+        // exists.address = req.body.address;
+        var userinfo = {
+            plan: exists.plan,
+            address: exists.address
+        }
+        console.log('profileinfo:')
+        // SAVE IN THE DATABASE
+        console.log(JSON.stringify(userinfo));
+        
+        return res.json({ success: true, info: userinfo });
+        
+
+    });
+});
 router.post('/update', (req, res) => {
     // CHECK USER EXISTANCE
     Account.findOne({ username: req.body.username }, (err, exists) => {

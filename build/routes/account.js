@@ -141,6 +141,30 @@ router.post('/logout', function (req, res) {
     return res.json({ sucess: true });
 });
 
+router.post('/getprofileinfo', function (req, res) {
+    console.log('profileinfo:');
+    _account2.default.findOne({ username: req.body.username }, function (err, exists) {
+        if (err) throw err;
+        if (!exists) {
+            return res.status(409).json({
+                error: "USER NOT EXISTS",
+                code: 3
+            });
+        }
+
+        // exists.plan = req.body.plan;
+        // exists.address = req.body.address;
+        var userinfo = {
+            plan: exists.plan,
+            address: exists.address
+        };
+        console.log('profileinfo:');
+        // SAVE IN THE DATABASE
+        console.log(JSON.stringify(userinfo));
+
+        return res.json({ success: true, info: userinfo });
+    });
+});
 router.post('/update', function (req, res) {
     // CHECK USER EXISTANCE
     _account2.default.findOne({ username: req.body.username }, function (err, exists) {

@@ -36991,6 +36991,12 @@
 
 	var _header2 = _interopRequireDefault(_header);
 
+	var _reactRedux = __webpack_require__(295);
+
+	var _axios = __webpack_require__(259);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37017,8 +37023,30 @@
 	        _this.setAddressMode = _this.setAddressMode.bind(_this);
 	        _this.setPlanMode = _this.setPlanMode.bind(_this);
 	        _this.handleUpdate = _this.handleUpdate.bind(_this);
+
 	        return _this;
 	    }
+
+	    // componentDidMount(){
+
+	    //     window.alert(this.props.thisuser);
+	    //     axios.post('/api/account/getprofileinfo', {username: this.props.currentuser})
+	    //     .then((response) => {
+	    //         window.alert('Successfuly GetInfo!');
+	    //         window.console.log("userinfo: "+ response.data.info);
+	    //         this.setState({
+	    //             editmode: "plan",
+	    //             address: response.data.info.address,
+	    //             plan: response.data.info.plan,
+	    //         });
+	    //     })
+	    //     .catch((error)=>{
+	    //         window.alert('Get User Info Failure!');
+	    //         window.console.log(error);
+	    //         //window.location = '/home';
+	    //     })
+
+	    // }
 
 	    _createClass(ProfilePage, [{
 	        key: 'setAddressMode',
@@ -37242,7 +37270,14 @@
 	    }
 	};
 
-	exports.default = ProfilePage;
+	var mapStateToProps = function mapStateToProps(state, currentuser) {
+	    return {
+	        thisuser: state.authentication.status.currentUser
+	    };
+	};
+
+	// export default ProfilePage;
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProfilePage);
 
 /***/ }),
 /* 338 */
