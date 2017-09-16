@@ -614,3 +614,10 @@ background-color:transparent;border:none
 .a-color {
     color: #f4bc42
 }
+
+.panel-default .panel-heading, .planHead {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    text-align: center;
+}

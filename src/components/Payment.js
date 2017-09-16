@@ -5,25 +5,20 @@ import Header from './SignupComponents/header'
 import Footer from './SignupComponents/footer'
 import CreditCardForm from './SignupComponents/cardDetails'
 
-// import loginRequest from '../actions/authentication';
 
 const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep, onLogin }) => {
 	const payAndSignup = (token) => {
         
 
         var data = JSON.stringify(fieldValues);
-        window.console.log(data);
 
-        axios.post('/api/payment/chargePayment', {token: token})
+        axios.post('/api/payment/chargePayment', {token: token, formData: fieldValues})
         .then((success) => {
-            console.log(success);
             fieldValues = saveValues({'charge_id': success.data.id});
             var id = fieldValues.username;
             var pw = fieldValues.password;
             axios.post('/api/payment/userSignup', fieldValues)
                 .then((response) => {
-                    window.alert('Successfuly Signup!');
-                    window.console.log(response);
                     onLogin(id, pw).then(
                         (success) => {
                             if(success) {
@@ -33,12 +28,10 @@ const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep, onLogin }) =
                             }
                         }
                     );
-                    //window.location = '/profile';
                 })
                 .catch((error)=>{
                     window.alert('User Signup Failure!');
                     window.console.log(error);
-                    //window.location = '/home';
                 })
 
         })
@@ -51,7 +44,7 @@ const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep, onLogin }) =
 	return (
 		<div>
 			<Header h1="Payment Information" h2={<h3 className="getStartedColor">Last step! Confirm your purchase</h3>} />
-		    <CreditCardForm payAndSignup={payAndSignup} selectedPlan={fieldValues.plan} />
+		    <CreditCardForm payAndSignup={payAndSignup} selectedPlan={fieldValues.plan} email={fieldValues.email}/>
 	    </div>
 	)
 }

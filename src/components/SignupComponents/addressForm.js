@@ -27,6 +27,7 @@ class Address extends React.Component {
 			            <label htmlFor="state" className="getStartedColor col-3 col-form-label">State</label>
 			            <div className="col-3">
 			                <select className="form-control" id="user_shipping_state" name="state" onChange={this.props.editAddress}>
+			                <option value=""></option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
 							<option value="AZ">Arizona</option>

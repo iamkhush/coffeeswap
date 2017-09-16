@@ -6,34 +6,30 @@ import config from '../config';
 import moment from 'moment';
 import Account from '../models/account';
 
-// let mdb;
-// MongoClient.connect('mongodb://localhost/coffeedb', (err, db) => {
-// 	assert.equal(null, err);
-// 	mdb = db;
-// });
 
 const router = express.Router();
 
 router.post('/chargePayment', (req, resp) => {
 	const stripe = stripePackage('sk_test_7rExXpXbHKApkPKeXCONyo8F');
-	console.log(req.body);
+	const stripePlan = req.body.formData.plan == 'monthly' ? 1:2;
 	stripe.customers.create({
     	email: req.body.token.email,
-    	source: req.body.token.id
+    	source: req.body.token.id,
   	})
   	.then(customer =>
-	    stripe.charges.create({
-	      amount:50,
-	      description: "Opted for plan",
-	      currency: "usd",
-	      customer: customer.id
-	})
+  		stripe.subscriptions.create({
+  			customer: customer.id,
+  			items: [{
+  				plan: stripePlan
+  			}]
+  		})	      
+	)
   	.then(charge => 
 		resp.send({
 			success: charge.captured,
 			id: charge.id
 		})
-	))
+	)
 });
 
 router.post('/userSignup', (req, res) => {

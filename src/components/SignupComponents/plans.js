@@ -25,7 +25,7 @@ const Plans = ({selectPlan}) => {
         					<div className="panel panel-default panel-pricing">
 		                		<MonthlyPlan />
 			                	<div className="panel-footer">
-	                				<a onClick={selectPlan} data-plan="monthly" className="btn btn-lg btn-block btn-success">Select Yearly</a>
+	                				<a onClick={selectPlan} data-plan="monthly" className="btn btn-lg btn-block btn-success">Select Monthly</a>
 	            				</div>
         					</div>
 		                </div>
