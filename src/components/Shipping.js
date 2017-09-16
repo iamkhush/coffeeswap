@@ -6,7 +6,6 @@ import Footer from './SignupComponents/footer'
 import AddressForm from './SignupComponents/addressForm'
 import Plans from './SignupComponents/plans'
 
-const FULLNAME_REGEXP = /^([A-Za-z']+(-| )?)+$/;
 const PASSWORD_REGEXP = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 const EMAIL_REGEXP = new RegExp('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]' +
     '{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
@@ -69,23 +68,6 @@ class Shipping extends React.Component {
                         })
                     })
                 }
-            }else if(inputName == 'username'){
-                if (FULLNAME_REGEXP.test(address[inputName])) {
-                    this.props.saveValues(address);
-                    // this.setState({error: {zipcode: false}});
-                    this.setState({
-                        error: update(this.state.error, {
-                            username: { $set: false }
-                        })
-                    })
-                } else {
-                    // this.setState({error: {zipcode: true}});
-                    this.setState({
-                        error: update(this.state.error, {
-                            username: { $set: true }
-                        })
-                    })
-                }                
             }else if (inputName == 'password'){
                 if (PASSWORD_REGEXP.test(address[inputName])) {
                     this.props.saveValues(address);
@@ -117,7 +99,7 @@ class Shipping extends React.Component {
                 <Plans selectPlan={this.selectPlan} />
                 <Footer maxFieldsCount={this.props.maxFieldsCount} currentFieldCount={this.props.currentFieldCount} 
                         maxValuesInThis={this.maxValuesInShipping} 
-                        nextStep={this.props.nextStep} h1="Review and Pay"
+                        nextStep={this.props.nextStep} h1="Continue to Payment Information"
                         error={this.state.error} />
             </div>
         )

@@ -10,7 +10,7 @@ import Account from '../models/account';
 const router = express.Router();
 
 router.post('/chargePayment', (req, resp) => {
-	const stripe = stripePackage('sk_test_7rExXpXbHKApkPKeXCONyo8F');
+	const stripe = stripePackage('sk_test_xKO56PkUDiyzGXTbQLuAQoq9');
 	const stripePlan = req.body.formData.plan == 'monthly' ? 1:2;
 	stripe.customers.create({
     	email: req.body.token.email,

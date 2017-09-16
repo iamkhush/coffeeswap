@@ -12,12 +12,12 @@ const CardDetails = ({payAndSignup, selectedPlan, email}) => {
                         <i style={{marginTop:'15px'}} className="getStartedColor fa fa-lg fa-shopping-cart"></i>
                     Your Cart:</h3>
                     { selectedPlan == 'monthly' ? <MonthlyPlan /> : <YearlyPlan /> }
-                    <div className="row" style={{padding:'30px',marginLeft:'10%',marginRight:'10%'}}>
-                        <div className="col-lg-10 col-lg-offset-3">
-                            <StripeCheckout stripeKey="pk_test_F835qhEb8KN4AukSKeK2BMbQ" token={payAndSignup} 
+                    <div className="row" style={{padding:'30px',marginRight:'10%'}}>
+                        <div>
+                            <StripeCheckout stripeKey="pk_test_LG9W8l2EBcjDkNBUBJKgXFDw" token={payAndSignup} 
                             name="The Coffee Swap" description={ selectedPlan == 'monthly' ? "Monthly Plan Subscription fees": "Yearly Plan Subscription fees" }
-                            email={email} bitcoin={true}>
-                                <button className="btn btn-primary">Finish & Pay</button>
+                            email={email}>
+                                <button className="btn btn-primary">Enter Payment Information</button>
                             </StripeCheckout>
                         </div>
                     </div>

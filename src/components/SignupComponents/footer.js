@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = ({nextStep, h1='', maxFieldsCount, currentFieldCount, maxValuesInThis, error}) => {
 	const complete = parseInt(((currentFieldCount*100)/maxFieldsCount).toFixed());
-	const showNext = currentFieldCount==maxValuesInThis && (error!=undefined ? !error.username && !error.password && !error.email && !error.zipcode: true);
+	const showNext = currentFieldCount==maxValuesInThis && (error!=undefined ? !error.password && !error.email && !error.zipcode: true);
 	return (
 		<section>
 			if (h1!='') {

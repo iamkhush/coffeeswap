@@ -10,15 +10,15 @@ class Address extends React.Component {
 			<section style={{marginLeft:'10%',marginRight:'10%',marginBottom:'10%'}}>
 		        <div className="col-lg-2 col-lg-offset-3">
 		            <div className="form-group row">
-			            <label htmlFor="username" className="getStartedColor col-3 col-form-label">Full Name</label>
+			            <label htmlFor="username" className="getStartedColor col-3 col-form-label">Username</label>
 			            <div className="col-3">
 			                <input onChange={this.props.editAddress} className="form-control" name="username" type="text" id="example-text-input" required />
 							<span style={{color:'red', display:this.props.showError.username?'block':'none'}}>Please input only Enlish Letters</span>
 						</div>
 			            <label htmlFor="password" className="getStartedColor col-3 col-form-label">Password</label>
 			            <div className="col-3">
-			                <input onChange={this.props.editAddress} className="form-control" name="password" type="text" id="example-text-input" required  />
-							<span style={{color:'red', display:this.props.showError.password?'block':'none'}}>Please input at least 8 charaters with one uppercase, one uppercase and one number</span>
+			                <input onChange={this.props.editAddress} className="form-control" name="password" type="password" id="example-text-input" required  />
+							<span style={{color:'red', display:this.props.showError.password?'block':'none'}}>Please input at least 8 characters with atleast one uppercase, one lowercse and one number</span>
 						</div>                
 			            <label htmlFor="address" className="getStartedColor col-3 col-form-label">Street Address</label>
 			            <div className="col-3">
