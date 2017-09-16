@@ -130,8 +130,10 @@ router.post('/logout', (req, res) => {
 
 
 router.post('/getprofileinfo', (req, res) => {
-    console.log('profileinfo:')
-    Account.findOne({ username: req.body.username }, (err, exists) => {
+    console.log('profileinfo:'+req.session.loginInfo.username);
+    var cuser = req.session.loginInfo.username;
+    console.log('cuser'+ cuser);
+    Account.findOne({ username: cuser}, (err, exists) => {
         if (err) throw err;
         if(!exists){
             return res.status(409).json({

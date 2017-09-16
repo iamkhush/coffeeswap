@@ -29,7 +29,7 @@ class Profile extends React.Component{
     }
     render() {
         return (
-            <ProfilePage onUpdate={this.handleUpdate} currentuser={this.props.currentuser}/>
+            <ProfilePage onUpdate={this.handleUpdate} currentuser={this.props.currentuser} userinfo={this.props.info}/>
         );
     }  
 }
@@ -37,7 +37,8 @@ class Profile extends React.Component{
 const mapStateToProps = (state, currentuser) => {
     return {
         status: state.authentication.updated.status,
-        currentuser: state.authentication.status.currentUser
+        currentuser: state.authentication.status.currentUser,
+        info: state.authentication.userinfo,
     };
 };
 

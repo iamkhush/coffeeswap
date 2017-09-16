@@ -27546,19 +27546,20 @@
 	                };
 
 	                document.cookie = 'key=' + btoa(JSON.stringify(loginData));
+	                window.location = "/";
 	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            /* Check whether current route is login or register using regex */
-	            var re = /(login|register)/;
+	            // Dont show header while signup
+	            var re = /(signup)/;
 	            var isAuth = re.test(this.props.location.pathname);
 
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_components.Header, {
+	                isAuth ? undefined : _react2.default.createElement(_components.Header, {
 	                    isLoggedIn: this.props.status.isLoggedIn,
 	                    currentuser: this.props.status.currentUser,
 	                    onLogout: this.handleLogout
@@ -27701,7 +27702,8 @@
 	        nextStep = _ref.nextStep,
 	        saveValues = _ref.saveValues,
 	        currentFieldCount = _ref.currentFieldCount,
-	        maxFieldsCount = _ref.maxFieldsCount;
+	        maxFieldsCount = _ref.maxFieldsCount,
+	        randomSelection = _ref.randomSelection;
 
 	    var maxValuesInGetStarted = 3;
 
@@ -27729,10 +27731,6 @@
 	        event.currentTarget.classList.add('roasttype-border');
 	    };
 
-	    var randomSelection = function randomSelection(event) {
-	        return console.log(event);
-	    };
-
 	    return _react2.default.createElement(
 	        'div',
 	        null,
@@ -27746,8 +27744,8 @@
 	                ),
 	                _react2.default.createElement(
 	                    'a',
-	                    { onClick: randomSelection, href: '#' },
-	                    ' Not sure or want a surprise? Click here to choose default settings >'
+	                    { onClick: randomSelection },
+	                    ' Not sure or want a surprise? Click here to choose default settings'
 	                )
 	            ) }),
 	        _react2.default.createElement(
@@ -30335,7 +30333,11 @@
 																																					'Select Yearly'
 																																	)
 																													)
-																									),
+																									)
+																					),
+																					_react2.default.createElement(
+																									'div',
+																									{ className: 'col-md-3 text-center' },
 																									_react2.default.createElement(
 																													'div',
 																													{ className: 'panel panel-default panel-pricing' },
@@ -32181,11 +32183,7 @@
 	                    _react2.default.createElement('i', { style: { marginTop: '15px' }, className: 'getStartedColor fa fa-lg fa-shopping-cart' }),
 	                    'Your Cart:'
 	                ),
-	                'if (selectedPlan == \'monthly\') ? ',
-	                _react2.default.createElement(_monthlyPlan2.default, null),
-	                ' : ',
-	                _react2.default.createElement(_yearlyPlan2.default, null),
-	                ';',
+	                selectedPlan == 'monthly' ? _react2.default.createElement(_monthlyPlan2.default, null) : _react2.default.createElement(_yearlyPlan2.default, null),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'row', style: { padding: '30px', marginLeft: '10%', marginRight: '10%' } },
@@ -32826,6 +32824,11 @@
 	      window.scroll(0, 0);
 	    };
 
+	    _this.randomSelection = function (event) {
+	      _this.saveValues({ roastLocation: 'Africa', roastByDate: 2, roastType: 'medium' });
+	      _this.nextStep();
+	    };
+
 	    return _this;
 	  }
 
@@ -32838,7 +32841,8 @@
 	            nextStep: this.nextStep,
 	            saveValues: this.saveValues,
 	            currentFieldCount: this.state.count,
-	            maxFieldsCount: this.maxFieldsCount });
+	            maxFieldsCount: this.maxFieldsCount,
+	            randomSelection: this.randomSelection });
 	        case 2:
 	          return _react2.default.createElement(_Shipping2.default, { fieldValues: this.fieldValues,
 	            nextStep: this.nextStep,
@@ -33213,12 +33217,12 @@
 	                                        "a",
 	                                        { href: "/help" },
 	                                        _react2.default.createElement("img", { className: "img-circle image-responsive a-i", src: "img/letter-coffee-1.jpg" })
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "caption" },
+	                                        "Connect with New People"
 	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    "div",
-	                                    { className: "caption" },
-	                                    "Connect with New People"
 	                                )
 	                            )
 	                        ),
@@ -33235,12 +33239,12 @@
 	                                        "a",
 	                                        { href: "/help" },
 	                                        _react2.default.createElement("img", { className: "img-circle image-responsive a-i", src: "img/ian-baldwin-cafe.jpg" })
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "caption" },
+	                                        "Discover New Places"
 	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    "div",
-	                                    { className: "caption" },
-	                                    "Discover New Places"
 	                                )
 	                            )
 	                        ),
@@ -33257,12 +33261,12 @@
 	                                        "a",
 	                                        { href: "/help" },
 	                                        _react2.default.createElement("img", { className: "img-circle image-responsive a-i", src: "img/bo-smith-33504.jpg" })
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "caption" },
+	                                        "Taste New Roasters"
 	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    "div",
-	                                    { className: "caption" },
-	                                    "Taste New Roasters"
 	                                )
 	                            )
 	                        )
@@ -36544,8 +36548,10 @@
 	        //     dispatch(loginFailure());
 	        // });
 	        return _axios2.default.post('/api/payment/userSignin', { "username": username, "password": password }).then(function (response) {
-	            window.console.log('Welcome' + response.data.user.username);
-	            dispatch(loginSuccess(username));
+	            window.console.log('Welcome' + response.data.user.address);
+	            var address = response.data.user.address;
+	            var plan = response.data.user.plan;
+	            dispatch(loginSuccess(username, address, plan));
 	        }).catch(function (error) {
 	            window.console.log(error);
 	            window.alert('User Signin Failure!');
@@ -36560,10 +36566,12 @@
 	    };
 	}
 
-	function loginSuccess(username) {
+	function loginSuccess(username, address, plan) {
 	    return {
 	        type: _ActionTypes.AUTH_LOGIN_SUCCESS,
-	        username: username
+	        username: username,
+	        address: address,
+	        plan: plan
 	    };
 	}
 
@@ -36662,9 +36670,9 @@
 	        dispatch(update());
 
 	        return _axios2.default.post('/api/account/update', { username: username, address: address, plan: plan }).then(function (response) {
-	            dispatch(updateSuccess());
+	            dispatch(updateSuccess(address, plan));
 	        }).catch(function (error) {
-	            dispatch(updateFailure(error.response.data.code));
+	            dispatch(updateFailure());
 	        });
 	    };
 	}
@@ -36675,16 +36683,17 @@
 	    };
 	}
 
-	function updateSuccess() {
+	function updateSuccess(address, plan) {
 	    return {
-	        type: _ActionTypes.AUTH_UPDATE_SUCCESS
+	        type: _ActionTypes.AUTH_UPDATE_SUCCESS,
+	        address: address,
+	        plan: plan
 	    };
 	}
 
-	function updateFailure(error) {
+	function updateFailure() {
 	    return {
-	        type: _ActionTypes.AUTH_UPDATE_FAILURE,
-	        error: error
+	        type: _ActionTypes.AUTH_UPDATE_FAILURE
 	    };
 	}
 
@@ -36936,7 +36945,7 @@
 
 	                    window.alert('Updated successfully');
 
-	                    window.location = "/home";
+	                    // window.location = "/home";
 	                    return true;
 	                } else {
 	                    window.alert('Update Failure');
@@ -36947,7 +36956,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_ProfilePage2.default, { onUpdate: this.handleUpdate, currentuser: this.props.currentuser });
+	            return _react2.default.createElement(_ProfilePage2.default, { onUpdate: this.handleUpdate, currentuser: this.props.currentuser, userinfo: this.props.info });
 	        }
 	    }]);
 
@@ -36957,7 +36966,8 @@
 	var mapStateToProps = function mapStateToProps(state, currentuser) {
 	    return {
 	        status: state.authentication.updated.status,
-	        currentuser: state.authentication.status.currentUser
+	        currentuser: state.authentication.status.currentUser,
+	        info: state.authentication.userinfo
 	    };
 	};
 
@@ -37015,8 +37025,8 @@
 
 	        _this.state = {
 	            editmode: "plan",
-	            address: "Edit Your FullAddress",
-	            plan: "Edit Plan Mode between Monthly/Yearly/Cancel"
+	            address: _this.props.userinfo.address,
+	            plan: _this.props.userinfo.plan
 	        };
 	        _this.handleChange = _this.handleChange.bind(_this);
 	        // this.handleOption = this.handleOption.bind(this);
@@ -37270,14 +37280,8 @@
 	    }
 	};
 
-	var mapStateToProps = function mapStateToProps(state, currentuser) {
-	    return {
-	        thisuser: state.authentication.status.currentUser
-	    };
-	};
-
 	// export default ProfilePage;
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProfilePage);
+	exports.default = ProfilePage;
 
 /***/ }),
 /* 338 */
@@ -37573,6 +37577,10 @@
 	    updated: {
 	        status: 'INIT',
 	        error: -1
+	    },
+	    userinfo: {
+	        plan: 'testINIT',
+	        address: 'testINIT'
 	    }
 	};
 
@@ -37595,6 +37603,10 @@
 	                status: {
 	                    isLoggedIn: { $set: true },
 	                    currentUser: { $set: action.username }
+	                },
+	                userinfo: {
+	                    address: { $set: action.address },
+	                    plan: { $set: action.plan }
 	                }
 	            });
 	        case types.AUTH_LOGIN_FAILURE:

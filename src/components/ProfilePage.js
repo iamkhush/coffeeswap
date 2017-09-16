@@ -7,8 +7,8 @@ class ProfilePage extends React.Component {
         super(props);
         this.state = {
             editmode: "plan",
-            address: "Edit Your FullAddress",
-            plan:"Edit Plan Mode between Monthly/Yearly/Cancel",
+            address: "a",
+            plan: "a",
         }
         this.handleChange = this.handleChange.bind(this);
         // this.handleOption = this.handleOption.bind(this);
@@ -19,26 +19,26 @@ class ProfilePage extends React.Component {
         
     }
 
-    // componentDidMount(){
+    componentDidMount(){
         
-    //     window.alert(this.props.thisuser);
-    //     axios.post('/api/account/getprofileinfo', {username: this.props.currentuser})
-    //     .then((response) => {
-    //         window.alert('Successfuly GetInfo!');
-    //         window.console.log("userinfo: "+ response.data.info);
-    //         this.setState({
-    //             editmode: "plan",
-    //             address: response.data.info.address,
-    //             plan: response.data.info.plan,
-    //         });
-    //     })
-    //     .catch((error)=>{
-    //         window.alert('Get User Info Failure!');
-    //         window.console.log(error);
-    //         //window.location = '/home';
-    //     })
+        // window.alert(this.props.thisuser);
+        axios.post('/api/account/getprofileinfo', {username: 'caesar'})
+        .then((response) => {
+            window.alert('Successfuly GetInfo!');
+            window.console.log("userinfo: "+ response.data.info);
+            this.setState({
+                editmode: "plan",
+                address: response.data.info.address,
+                plan: response.data.info.plan,
+            });
+        })
+        .catch((error)=>{
+            window.alert('Get User Info Failure!');
+            window.console.log(error);
+            //window.location = '/home';
+        })
 
-    // }
+    }
 
     setAddressMode(){
         this.setState({
@@ -153,12 +153,10 @@ ProfilePage.propTypes = {
 ProfilePage.defaultProps = {
     onUpdate: (username, address, plan) => { console.error("onUpdate not defined"); }
 };
-
-const mapStateToProps = (state, currentuser) => {
+const mapStateToProps = (state) => {
     return {
-        thisuser: state.authentication.status.currentUser
+        thisuser: state.authentication.status.currentUser,
     };
-};
-
+}
 // export default ProfilePage;
 export default connect(mapStateToProps)(ProfilePage);

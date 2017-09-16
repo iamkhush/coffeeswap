@@ -41,8 +41,10 @@ export function loginRequest(username, password) {
         // });
         return axios.post('/api/payment/userSignin', {"username": username, "password": password})
         .then((response) => {
-            window.console.log('Welcome'+response.data.user.username);
-            dispatch(loginSuccess(username));
+            window.console.log('Welcome'+response.data.user.address);
+            var address = response.data.user.address;
+            var plan = response.data.user.plan;
+            dispatch(loginSuccess('test', address, plan));
         })
         .catch((error)=>{
             window.console.log(error);
@@ -58,10 +60,12 @@ export function login() {
     };
 }
 
-export function loginSuccess(username) {
+export function loginSuccess(username, address, plan) {
     return {
         type: AUTH_LOGIN_SUCCESS,
-        username
+        username,
+        address,
+        plan
     };
 }
 
@@ -114,7 +118,10 @@ export function getStatusRequest() {
 
         return axios.get('/api/account/getInfo')
         .then((response) => {
-            dispatch(getStatusSuccess(response.data.info.username));
+            var username = response.data.info.username;
+            var address = response.data.info.address;
+            var plan = response.data.info.plan;
+            dispatch(getStatusSuccess(username, address, plan));
         }).catch((error) => {
             dispatch(getStatusFailure());
         });
@@ -127,10 +134,12 @@ export function getStatus() {
     };
 }
 
-export function getStatusSuccess(username) {
+export function getStatusSuccess(username, address, plan) {
     return {
         type: AUTH_GET_STATUS_SUCCESS,
-        username
+        username,
+        address,
+        plan,
     };
 }
 
@@ -164,9 +173,9 @@ export function updateRequest(username, address, plan) {
 
         return axios.post('/api/account/update', { username, address, plan })
         .then((response) => {
-            dispatch(updateSuccess());
+            dispatch(updateSuccess(address, plan));
         }).catch((error) => {
-            dispatch(updateFailure(error.response.data.code));
+            dispatch(updateFailure());
         });
     };
 }
@@ -177,15 +186,16 @@ export function update() {
     };
 }
 
-export function updateSuccess() {
+export function updateSuccess(address, plan) {
     return {
         type: AUTH_UPDATE_SUCCESS,
+        address,
+        plan,
     };
 }
 
-export function updateFailure(error) {
+export function updateFailure() {
     return {
         type: AUTH_UPDATE_FAILURE,
-        error
     };
 }

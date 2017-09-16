@@ -17,6 +17,10 @@ const initialState = {
     updated:{
         status: 'INIT',
         error: -1
+    },
+    userinfo:{
+        plan: 'testINIT',
+        address: 'testINIT',
     }
 };
 
@@ -40,6 +44,10 @@ export default function authentication(state, action) {
                 status: {
                     isLoggedIn: { $set: true },
                     currentUser: { $set: action.username }
+                },
+                userinfo: {
+                    address: { $set: action.address },
+                    plan: { $set: action.plan }
                 }
             });
         case types.AUTH_LOGIN_FAILURE:
@@ -79,6 +87,10 @@ export default function authentication(state, action) {
                 status: {
                     valid: { $set: true },
                     currentUser: { $set: action.username }
+                },
+                userinfo: {
+                    address: { $set: action.address },
+                    plan: { $set: action.plan }
                 }
             });
         case types.AUTH_GET_STATUS_FAILURE:

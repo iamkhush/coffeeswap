@@ -70,6 +70,7 @@ router.post('/userSignup', function (req, res) {
 		password: req.body.password,
 		roastType: req.body.roastType,
 		roastLocation: req.body.roastLocation,
+		roastByDate: req.body.roastByDate,
 		address: req.body.address,
 		state: req.body.state,
 		email: req.body.email,
