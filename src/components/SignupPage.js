@@ -40,7 +40,7 @@ class SignupPage extends React.Component {
 
         this.randomSelection = (event) => {
           this.saveValues({roastLocation:'Africa', roastByDate:2, roastType:'medium'});
-          this.nextStep();
+          this.setState({count: 3, step: 2});
         }
 
     }

@@ -32,7 +32,7 @@ const getStarted = ({ fieldValues, nextStep, saveValues, currentFieldCount, maxF
         <div>
             <Header h1="Get Started" h2={
                 <div><p>First, complete these three steps to tell us about your coffee preferences.</p>
-                <a onClick={randomSelection}> Not sure or want a surprise? Click here to choose default settings</a>
+                <a onClick={randomSelection} href="javascript:void(0)"> Not sure or want a surprise? Click here to choose default settings</a>
                 </div>} />
             <form method="GET" action="/shipping">
                 <RoastTypeForm selectType={selectType} />            

@@ -18,7 +18,7 @@ class Address extends React.Component {
 			            <label htmlFor="password" className="getStartedColor col-3 col-form-label">Password</label>
 			            <div className="col-3">
 			                <input onChange={this.props.editAddress} className="form-control" name="password" type="text" id="example-text-input" required  />
-							<span style={{color:'red', display:this.props.showError.password?'block':'none'}}>Please input at least 8 charaters with one uppercase, one suppercase and one number</span>
+							<span style={{color:'red', display:this.props.showError.password?'block':'none'}}>Please input at least 8 charaters with one uppercase, one uppercase and one number</span>
 						</div>                
 			            <label htmlFor="address" className="getStartedColor col-3 col-form-label">Street Address</label>
 			            <div className="col-3">
@@ -27,7 +27,6 @@ class Address extends React.Component {
 			            <label htmlFor="state" className="getStartedColor col-3 col-form-label">State</label>
 			            <div className="col-3">
 			                <select className="form-control" id="user_shipping_state" name="state" onChange={this.props.editAddress}>
-			                <option value=""></option>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
 							<option value="AZ">Arizona</option>
@@ -105,7 +104,7 @@ class Address extends React.Component {
 	                	</div>
 	                	<label  htmlFor="country" className="getStartedColor col-3 col-form-label">Country</label>
 	            		<div className="col-3">
-	            			<select onChange={this.props.editAddress} defaultValue="US" name="country" className="form-control" id="user_shipping_country">
+	            			<select onChange={this.props.editAddress} name="country" className="form-control" id="user_shipping_country">
 	            			<option value=""></option>
 							<option value="AE">United Arab Emirates</option>
 							<option value="AF">Afghanistan</option>

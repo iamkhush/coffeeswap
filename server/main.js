@@ -42,11 +42,6 @@ app.use(function(err, req, res, next) {
 
 app.use('/', express.static(path.join(__dirname, './../public')));
 
-
-app.get('/hello', (req, res) => {
-    return res.send('Hello CodeLab');
-});
-
 app.use('/api', api);
 
 /* support client-side routing */
