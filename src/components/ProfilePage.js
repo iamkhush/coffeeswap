@@ -7,8 +7,8 @@ class ProfilePage extends React.Component {
         super(props);
         this.state = {
             editmode: "plan",
-            address: "a",
-            plan: "a",
+            address: "Please input your address",
+            plan: "Please input your plan",
         }
         this.handleChange = this.handleChange.bind(this);
         // this.handleOption = this.handleOption.bind(this);
@@ -31,13 +31,13 @@ class ProfilePage extends React.Component {
                 address: response.data.info.address,
                 plan: response.data.info.plan,
             });
+            //window.location = '/home';
         })
         .catch((error)=>{
             window.alert('Get User Info Failure!');
             window.console.log(error);
             //window.location = '/home';
         })
-
     }
 
     setAddressMode(){

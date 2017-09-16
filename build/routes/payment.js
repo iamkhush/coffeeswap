@@ -122,7 +122,9 @@ router.post('/userSignin', function (req, res) {
 		var session = req.session;
 		session.loginInfo = {
 			_id: account._id,
-			username: account.username
+			username: account.username,
+			plan: account.plan,
+			address: account.address
 		};
 
 		// RETURN SUCCESS

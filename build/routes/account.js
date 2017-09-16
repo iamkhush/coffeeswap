@@ -142,8 +142,10 @@ router.post('/logout', function (req, res) {
 });
 
 router.post('/getprofileinfo', function (req, res) {
-    console.log('profileinfo:');
-    _account2.default.findOne({ username: req.body.username }, function (err, exists) {
+    console.log('profileinfo:' + req.session.loginInfo.username);
+    var cuser = req.session.loginInfo.username;
+    console.log('cuser' + cuser);
+    _account2.default.findOne({ username: cuser }, function (err, exists) {
         if (err) throw err;
         if (!exists) {
             return res.status(409).json({

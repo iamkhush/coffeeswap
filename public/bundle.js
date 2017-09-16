@@ -36551,7 +36551,7 @@
 	            window.console.log('Welcome' + response.data.user.address);
 	            var address = response.data.user.address;
 	            var plan = response.data.user.plan;
-	            dispatch(loginSuccess(username, address, plan));
+	            dispatch(loginSuccess('test', address, plan));
 	        }).catch(function (error) {
 	            window.console.log(error);
 	            window.alert('User Signin Failure!');
@@ -36622,7 +36622,10 @@
 	        dispatch(getStatus());
 
 	        return _axios2.default.get('/api/account/getInfo').then(function (response) {
-	            dispatch(getStatusSuccess(response.data.info.username));
+	            var username = response.data.info.username;
+	            var address = response.data.info.address;
+	            var plan = response.data.info.plan;
+	            dispatch(getStatusSuccess(username, address, plan));
 	        }).catch(function (error) {
 	            dispatch(getStatusFailure());
 	        });
@@ -36635,10 +36638,12 @@
 	    };
 	}
 
-	function getStatusSuccess(username) {
+	function getStatusSuccess(username, address, plan) {
 	    return {
 	        type: _ActionTypes.AUTH_GET_STATUS_SUCCESS,
-	        username: username
+	        username: username,
+	        address: address,
+	        plan: plan
 	    };
 	}
 
@@ -37025,8 +37030,8 @@
 
 	        _this.state = {
 	            editmode: "plan",
-	            address: _this.props.userinfo.address,
-	            plan: _this.props.userinfo.plan
+	            address: "Please input your address",
+	            plan: "Please input your plan"
 	        };
 	        _this.handleChange = _this.handleChange.bind(_this);
 	        // this.handleOption = this.handleOption.bind(this);
@@ -37037,28 +37042,28 @@
 	        return _this;
 	    }
 
-	    // componentDidMount(){
-
-	    //     window.alert(this.props.thisuser);
-	    //     axios.post('/api/account/getprofileinfo', {username: this.props.currentuser})
-	    //     .then((response) => {
-	    //         window.alert('Successfuly GetInfo!');
-	    //         window.console.log("userinfo: "+ response.data.info);
-	    //         this.setState({
-	    //             editmode: "plan",
-	    //             address: response.data.info.address,
-	    //             plan: response.data.info.plan,
-	    //         });
-	    //     })
-	    //     .catch((error)=>{
-	    //         window.alert('Get User Info Failure!');
-	    //         window.console.log(error);
-	    //         //window.location = '/home';
-	    //     })
-
-	    // }
-
 	    _createClass(ProfilePage, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            // window.alert(this.props.thisuser);
+	            _axios2.default.post('/api/account/getprofileinfo', { username: 'caesar' }).then(function (response) {
+	                window.alert('Successfuly GetInfo!');
+	                window.console.log("userinfo: " + response.data.info);
+	                _this2.setState({
+	                    editmode: "plan",
+	                    address: response.data.info.address,
+	                    plan: response.data.info.plan
+	                });
+	                //window.location = '/home';
+	            }).catch(function (error) {
+	                window.alert('Get User Info Failure!');
+	                window.console.log(error);
+	                //window.location = '/home';
+	            });
+	        }
+	    }, {
 	        key: 'setAddressMode',
 	        value: function setAddressMode() {
 	            this.setState({
@@ -37082,7 +37087,7 @@
 	    }, {
 	        key: 'handleUpdate',
 	        value: function handleUpdate() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            var address = this.state.address;
 	            var plan = this.state.plan;
@@ -37090,7 +37095,7 @@
 	            window.alert('username: ' + user);
 	            this.props.onUpdate(user, address, plan).then(function (success) {
 	                if (!success) {
-	                    _this2.setState({
+	                    _this3.setState({
 	                        address: ''
 	                    });
 	                }
@@ -37279,9 +37284,13 @@
 	        console.error("onUpdate not defined");
 	    }
 	};
-
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        thisuser: state.authentication.status.currentUser
+	    };
+	};
 	// export default ProfilePage;
-	exports.default = ProfilePage;
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProfilePage);
 
 /***/ }),
 /* 338 */
@@ -37646,6 +37655,10 @@
 	                status: {
 	                    valid: { $set: true },
 	                    currentUser: { $set: action.username }
+	                },
+	                userinfo: {
+	                    address: { $set: action.address },
+	                    plan: { $set: action.plan }
 	                }
 	            });
 	        case types.AUTH_GET_STATUS_FAILURE:
