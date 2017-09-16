@@ -66,6 +66,7 @@ class App extends React.Component {
                     };
     
                     document.cookie = 'key=' + btoa(JSON.stringify(loginData));
+                    window.location = "/";
                 }
             );
         }
