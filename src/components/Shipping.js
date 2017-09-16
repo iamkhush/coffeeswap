@@ -117,7 +117,8 @@ class Shipping extends React.Component {
                 <Plans selectPlan={this.selectPlan} />
                 <Footer maxFieldsCount={this.props.maxFieldsCount} currentFieldCount={this.props.currentFieldCount} 
                         maxValuesInThis={this.maxValuesInShipping} 
-                        nextStep={this.props.nextStep} h1="Review and Pay" />
+                        nextStep={this.props.nextStep} h1="Review and Pay"
+                        error={this.state.error} />
             </div>
         )
     }

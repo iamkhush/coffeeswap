@@ -135,10 +135,12 @@ class ProfilePage extends React.Component {
                     </div>
                 </div>
                 <hr />
-                <h3 className="text-center getStartedColor">{ this.state.editmode == "address" ? "AddressSetting" : "Payment Plan Settings" }</h3>
-                { this.state.editmode == "address" ? AddressArea : PlanArea }
-                <div className="col-lg-10 col-lg-offset-5 getStartedColor pro_save">
-                    <a onClick={this.handleUpdate} className="btn btn-default2 btn-lg" >Save Changes</a>
+                <div className="row">
+                    <h3 className="text-center getStartedColor">{ this.state.editmode == "address" ? "AddressSetting" : "Payment Plan Settings" }</h3>
+                    { this.state.editmode == "address" ? AddressArea : PlanArea }
+                    <div className="col-lg-10 col-lg-offset-5 getStartedColor pro_save">
+                        <a onClick={this.handleUpdate} className="btn btn-default2 btn-lg" >Save Changes</a>
+                    </div>
                 </div>
             </div>            
         )
