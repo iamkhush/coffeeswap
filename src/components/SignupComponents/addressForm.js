@@ -18,7 +18,7 @@ class Address extends React.Component {
 			            <label htmlFor="password" className="getStartedColor col-3 col-form-label">Password</label>
 			            <div className="col-3">
 			                <input onChange={this.props.editAddress} className="form-control" name="password" type="password" id="example-text-input" required  />
-							<span style={{color:'red', display:this.props.showError.password?'block':'none'}}>Please input at least 8 characters with atleast one uppercase, one lowercse and one number</span>
+							<span style={{color:'red', display:this.props.showError.password?'block':'none'}}>Please input at least 8 characters with atleast one uppercase, one lowercase and one number</span>
 						</div>                
 			            <label htmlFor="address" className="getStartedColor col-3 col-form-label">Street Address</label>
 			            <div className="col-3">
