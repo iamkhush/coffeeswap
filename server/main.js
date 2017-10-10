@@ -1,6 +1,8 @@
 import express from 'express';
 import path from 'path';
 
+import mongo_express from 'mongo-express/lib/middleware';
+
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
 
@@ -11,6 +13,7 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 
 import api from './routes';
+import config from './config';
 
 const app = express();
 const port = 3000;
@@ -24,8 +27,10 @@ app.use(bodyParser.json());
 const db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', () => { console.log('Connected to mongodb server'); });
-// mongoose.connect('mongodb://username:password@host:port/database=');
-mongoose.connect('mongodb://localhost/coffeedb');
+mongoose.connect(config.mongodb.connectionString, {useMongoClient: true});
+
+/* mongo express admin */
+app.use('/mongo_express', mongo_express(config));
 
 /* use session */
 app.use(session({
