@@ -7,7 +7,7 @@ const Account = new Schema({
     roastType:      String,
     roastByDate:    String,
     roastLocation:  String,
-    username:       String,
+    username:       { type: String, unique: true },
     password:       String,
     address:        String,
     state:          String,
@@ -22,13 +22,13 @@ const Account = new Schema({
 });
 
 // generates hash
-// Account.methods.generateHash = function(password) {
-//     return bcrypt.hashSync(password, 8);
-// };
+Account.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, 8);
+};
 
 // compares the password
-// Account.methods.validateHash = function(password) {
-//     return bcrypt.compareSync(password, this.password);
-// };
+Account.methods.validateHash = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
 
 export default mongoose.model('account', Account);

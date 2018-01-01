@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import https from 'https';
 
 import mongo_express from 'mongo-express/lib/middleware';
 
@@ -18,13 +19,14 @@ import config from './config';
 const app = express();
 const port = 3000;
 const devPort = 4000;
+const db = mongoose.connection;
 
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 /* mongodb connection */
-const db = mongoose.connection;
+
 db.on('error', console.error);
 db.once('open', () => { console.log('Connected to mongodb server'); });
 mongoose.connect(config.mongodb.connectionString, {useMongoClient: true});
@@ -34,7 +36,7 @@ app.use('/mongo_express', mongo_express(config));
 
 /* use session */
 app.use(session({
-    secret: 'CodeLab1$1$234',
+    secret: config.sessionKey,
     resave: false,
     saveUninitialized: true
 }));
@@ -54,9 +56,17 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, './../public/index.html'));
 });
 
+// add correct http headers
+app.use(require('helmet')());
+
+if (config.httpsOptions){
+    // create https server
+    https.createServer(config.httpsOptions, app).listen(443);
+}
+
 app.listen(port, () => {
     console.log('Express is listening on port', port);
-});
+    });
 
 if(process.env.NODE_ENV == 'development') {
     console.log('Server is running on development mode');

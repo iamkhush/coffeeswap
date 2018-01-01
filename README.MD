@@ -10,7 +10,8 @@ npm install
 npm run development
 running at localhost:4000
 
-### Product
+### Production
+npm run build 
 npm run start
 running at localhost:3000
 

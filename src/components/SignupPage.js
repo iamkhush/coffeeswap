@@ -1,9 +1,7 @@
 import React from 'react';
-import GetStarted from './GetStarted'
-import Shipping from './Shipping'
-import Payment from './Payment'
 
-// import { GetStarted, Shipping, Payment } from 'components';
+import { GetStarted, Shipping, Payment } from 'components';
+
 class SignupPage extends React.Component {
     constructor(props) {
         super(props);

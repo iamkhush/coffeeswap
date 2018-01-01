@@ -24,7 +24,6 @@ class Shipping extends React.Component {
 
         this.state = {
             error:{
-                username: false,
                 password: false,
                 email: false,
                 zipcode: false,

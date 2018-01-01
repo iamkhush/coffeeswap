@@ -4,6 +4,8 @@ import Account from '../models/account';
 
 const router = express.Router();
 
+const UserNameRegex = /^[a-z0-9]+$/;
+
 /*
     ACCOUNT SIGNUP: POST /api/account/signup
     BODY SAMPLE: { "username": "test", "password": "test" }
@@ -14,9 +16,8 @@ const router = express.Router();
 */
 router.post('/signup', (req, res) => {
     // CHECK USERNAME FORMAT
-    let usernameRegex = /^[a-z0-9]+$/;
 
-    if(!usernameRegex.test(req.body.username)) {
+    if(!UserNameRegex.test(req.body.username)) {
         return res.status(400).json({
             error: "BAD USERNAME",
             code: 1
@@ -130,6 +131,13 @@ router.post('/logout', (req, res) => {
 
 
 router.post('/getprofileinfo', (req, res) => {
+    let username = req.session.loginInfo.username || '';
+    if(!UserNameRegex.test(username)) {
+        return res.status(400).json({
+            error: "BAD USERNAME",
+            code: 1
+        });
+    }    
     console.log('profileinfo:'+req.session.loginInfo.username);
     var cuser = req.session.loginInfo.username;
     console.log('cuser'+ cuser);
@@ -142,15 +150,10 @@ router.post('/getprofileinfo', (req, res) => {
             });
         }
 
-        // exists.plan = req.body.plan;
-        // exists.address = req.body.address;
         var userinfo = {
             plan: exists.plan,
             address: exists.address
         }
-        console.log('profileinfo:')
-        // SAVE IN THE DATABASE
-        console.log(JSON.stringify(userinfo));
         
         return res.json({ success: true, info: userinfo });
         

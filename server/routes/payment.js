@@ -6,7 +6,6 @@ import config from '../config';
 import moment from 'moment';
 import Account from '../models/account';
 
-
 const router = express.Router();
 
 router.post('/chargePayment', (req, resp) => {
@@ -14,7 +13,7 @@ router.post('/chargePayment', (req, resp) => {
 	const stripePlan = req.body.formData.plan == 'monthly' ? 1:2;
 	stripe.customers.create({
     	email: req.body.token.email,
-    	source: req.body.token.id,
+    	source: req.body.token.token.id,
   	})
   	.then(customer =>
   		stripe.subscriptions.create({
