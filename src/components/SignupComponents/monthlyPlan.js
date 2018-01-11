@@ -3,7 +3,7 @@ import React from 'react';
 const MonthlyPlan = () => {
 	return (
         <div>
-            <div className="panel-heading">
+            <div className="panel-heading planHead">
                 <i className="fa fa-coffee"></i>
                 <h3>Monthly</h3>
             </div>
