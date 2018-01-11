@@ -79,7 +79,8 @@ class ProfilePage extends React.Component {
                         <label>
                             <h4 className="getStartedColor">Monthly Plan ($22/Month)</h4>
                         <div className="radio text-center">
-                            <input type="radio" name="plan" value="Monthly Plan" onClick={this.handleChange}/>
+                            <input type="radio" name="plan" value="Monthly Plan" onClick={this.handleChange} 
+                            checked={this.state.plan=='monthly'} />
                         </div>
                         </label>
                     </div>  
@@ -89,7 +90,8 @@ class ProfilePage extends React.Component {
                             <label>
                             <h4 className="getStartedColor">Yearly Plan ($20/Month - $240 Annual)</h4>
                             <div className="radio text-center">
-                                <input type="radio" name="plan" value="Yearly Plan" onClick={this.handleChange}/>
+                                <input type="radio" name="plan" value="Yearly Plan" onClick={this.handleChange}
+                                checked={this.state.plan=='yearly'} />
                             </div>
                             </label>
                     </div>  
