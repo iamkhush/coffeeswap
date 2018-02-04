@@ -1,33 +1,9 @@
 import * as types from 'actions/ActionTypes';
-import update from 'react-addons-update';
+import update from 'immutability-helper';
 
-const initialState = {
-    login:{
-        status: 'INIT'
-    },
-    register:{
-        status: 'INIT',
-        error: -1
-    },
-    status:{
-        valid: false,
-        isLoggedIn: false,
-        currentUser:'',
-    },
-    updated:{
-        status: 'INIT',
-        error: -1
-    },
-    userinfo:{
-        plan: 'testINIT',
-        address: 'testINIT',
-    }
-};
+import initialState from './initialState';
 
-export default function authentication(state, action) {
-    if(typeof state === "undefined")
-        state = initialState;
-
+export function authentication(state = initialState, action) {
     switch(action.type) {
         /* LOGIN */
         case types.AUTH_LOGIN:
@@ -76,6 +52,7 @@ export default function authentication(state, action) {
                     error: { $set: action.error }
                 }
             });
+        // ?? why? 
         case types.AUTH_GET_STATUS:
             return update(state, {
                 status: {
@@ -109,29 +86,6 @@ export default function authentication(state, action) {
                     isLoggedIn: {$set: false}
                 }
             });
-        
-        /* UPDATE */
-        case types.AUTH_UPDATE:
-            return update(state, {
-                updated: {
-                    status: { $set: 'WAITING' },
-                    error: { $set: -1 }
-                }
-            });
-        case types.AUTH_UPDATE_SUCCESS:
-            return update(state, {
-                updated: {
-                    status: { $set: 'SUCCESS' }
-                }
-            });
-        case types.AUTH_UPDATE_FAILURE:
-            return update(state, {
-                updated: {
-                    status: { $set: 'FAILURE' },
-                    error: { $set: action.error }
-                }
-            });
-
         default:
             return state;
     }

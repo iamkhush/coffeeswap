@@ -1,5 +1,5 @@
 import defaultConfig from 'mongo-express/config.default.js';
-import fs from 'fs';
+const fs = require('fs');
 
 // Mongo and MongoExpress config
 defaultConfig.mongodb.connectionString='mongodb://localhost:27017/coffeedb';

@@ -1,10 +1,12 @@
 import React from 'react';
-import update from 'react-addons-update';
+import update from 'immutability-helper';
+import { connect } from 'react-redux';
 
 import Header from './SignupComponents/header'
 import Footer from './SignupComponents/footer'
 import AddressForm from './SignupComponents/addressForm'
 import Plans from './SignupComponents/plans'
+import { checkUsernameRequest } from '../actions';
 
 const PASSWORD_REGEXP = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 const EMAIL_REGEXP = new RegExp('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]' +
@@ -27,6 +29,8 @@ class Shipping extends React.Component {
                 password: false,
                 email: false,
                 zipcode: false,
+                username: false,
+                unique: true
             }
         }
 
@@ -43,7 +47,6 @@ class Shipping extends React.Component {
                         })
                     })
                 } else {
-                    // this.setState({error: {email: true}});
                     this.setState({
                         error: update(this.state.error, {
                             email: { $set: true }
@@ -84,7 +87,22 @@ class Shipping extends React.Component {
                         })
                     })
                 }
-            }else{
+            }
+            else if (inputName == 'username') {
+                new Promise((resolve, reject) => {
+                    resolve(this.props.checkUsernameRequest(address[inputName]));
+                }).then(function(){
+                    this.setState({
+                        error: update(this.state.error, {
+                            unique: { $set: this.props.isUnique }
+                        })
+                    });
+                    if(this.props.isUnique){
+                        this.props.saveValues(address);
+                    }
+                }.bind(this))
+            }
+            else{
                 this.props.saveValues(address);
             }
         };
@@ -94,7 +112,8 @@ class Shipping extends React.Component {
         return (
             <div>
                 <Header h1="Shipping Information" h2={<h3 className="getStartedColor">Tell us where you'd like your coffee delivered: </h3>} />
-                <AddressForm editAddress={this.editAddress} showError={this.state.error}/>
+                <AddressForm editAddress={this.editAddress} showError={this.state.error}
+                />
                 <Plans selectPlan={this.selectPlan} />
                 <Footer maxFieldsCount={this.props.maxFieldsCount} currentFieldCount={this.props.currentFieldCount} 
                         maxValuesInThis={this.maxValuesInShipping} 
@@ -105,4 +124,19 @@ class Shipping extends React.Component {
     }
 }
 
-export default Shipping;
+const mapStateToProps = (state) => {
+    return {
+        isUnique: state.otherMethods.userinfo.unique
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        checkUsernameRequest: (name) => {
+            return dispatch(checkUsernameRequest(name));
+        }
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shipping);

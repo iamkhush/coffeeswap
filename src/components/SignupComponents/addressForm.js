@@ -14,6 +14,7 @@ class Address extends React.Component {
 			            <div className="col-3">
 			                <input onChange={this.props.editAddress} className="form-control" name="username" type="text" id="example-text-input" required />
 							<span style={{color:'red', display:this.props.showError.username?'block':'none'}}>Please input only Enlish Letters</span>
+							<span style={{color:'red', display:this.props.showError.unique?'none':'block'}}>This username has been used.</span>
 						</div>
 			            <label htmlFor="password" className="getStartedColor col-3 col-form-label">Password</label>
 			            <div className="col-3">

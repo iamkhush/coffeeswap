@@ -9,10 +9,6 @@ import {
     AUTH_GET_STATUS_SUCCESS,
     AUTH_GET_STATUS_FAILURE,
     AUTH_LOGOUT,
-    AUTH_UPDATE,
-    AUTH_UPDATE_SUCCESS,
-    AUTH_UPDATE_FAILURE,
-
 } from './ActionTypes';
 
 import axios from 'axios';
@@ -165,37 +161,3 @@ export function logout() {
     };
 }
 
-/* UPDATE */
-export function updateRequest(username, address, plan) {
-    return (dispatch) => {
-        // Inform update API is starting
-        dispatch(update());
-
-        return axios.post('/api/account/update', { username, address, plan })
-        .then((response) => {
-            dispatch(updateSuccess(address, plan));
-        }).catch((error) => {
-            dispatch(updateFailure());
-        });
-    };
-}
-
-export function update() {
-    return {
-        type: AUTH_UPDATE
-    };
-}
-
-export function updateSuccess(address, plan) {
-    return {
-        type: AUTH_UPDATE_SUCCESS,
-        address,
-        plan,
-    };
-}
-
-export function updateFailure() {
-    return {
-        type: AUTH_UPDATE_FAILURE,
-    };
-}

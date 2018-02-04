@@ -17,4 +17,4 @@ running at localhost:3000
 
 
 ### AWS
-Code is live at http://ec2-18-220-128-75.us-east-2.compute.amazonaws.com/
+Code is live at http://ec2-13-58-197-69.us-east-2.compute.amazonaws.com/

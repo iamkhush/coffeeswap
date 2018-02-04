@@ -130,8 +130,16 @@ router.post('/logout', (req, res) => {
 });
 
 
+/*
+    ACCOUNT SIGNIN: POST /api/account/getprofileinfo
+    BODY SAMPLE: { "username": "test", "password": "test" }
+    ERROR CODES:
+        1: BAD USERNAME
+        2. USER NOT EXISTS
+*/
 router.post('/getprofileinfo', (req, res) => {
     let username = req.session.loginInfo.username || '';
+
     if(!UserNameRegex.test(username)) {
         return res.status(400).json({
             error: "BAD USERNAME",
@@ -146,7 +154,7 @@ router.post('/getprofileinfo', (req, res) => {
         if(!exists){
             return res.status(409).json({
                 error: "USER NOT EXISTS",
-                code: 3
+                code: 2
             });
         }
 
@@ -181,4 +189,17 @@ router.post('/update', (req, res) => {
 
     });
 });
+
+/*
+    ACCOUNT SIGNIN: POST /api/account/checkusername
+    ERROR CODES:
+        1: Not logged in
+*/
+router.post('/checkusername', (req, res) => {
+    Account.findOne({ username: req.body.username }, (err, exists) => {
+        if (err) throw err;
+        return res.json({is_unique: !exists});
+    })
+});
+
 export default router;
