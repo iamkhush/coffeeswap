@@ -22,11 +22,7 @@ class Signup extends React.Component{
                     };
 
                     document.cookie = 'key=' + btoa(JSON.stringify(loginData));
-                    window.alert('Welcome');
-
-                    //Materialize.toast('Welcome ' + id + '!', 2000);
-                    // window.alert('Welcome' + Response)
-                    // browserHistory.push('/');
+                    // window.alert('Welcome');
                     window.location = "/home";
                     return true;
                 } else {

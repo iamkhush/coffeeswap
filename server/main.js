@@ -18,6 +18,7 @@ import config from './config';
 
 const app = express();
 const port = 3000;
+const httpsPort = 5000;
 const devPort = 4000;
 const db = mongoose.connection;
 
@@ -45,7 +46,7 @@ app.use(session({
 app.use(function(err, req, res, next) {
     console.error(err.stack);
     res.status(500).send('Something broke!');
-  });
+});
 
 app.use('/', express.static(path.join(__dirname, './../public')));
 
@@ -61,12 +62,15 @@ app.use(require('helmet')());
 
 if (config.httpsOptions){
     // create https server
-    https.createServer(config.httpsOptions, app).listen(443);
-}
-
-app.listen(port, () => {
-    console.log('Express is listening on port', port);
+    https.createServer(config.httpsOptions, app).listen(httpsPort, () => {
+        console.log('Express is listening on port', port);
     });
+}
+else {
+    app.listen(port, () => {
+        console.log('Express is listening on port', port);
+    });
+}
 
 if(process.env.NODE_ENV == 'development') {
     console.log('Server is running on development mode');
