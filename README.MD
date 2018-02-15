@@ -1,5 +1,7 @@
 # Coffee-Swap-site
 
+[![CircleCI](https://circleci.com/gh/iamkhush/coffeeswap.svg?style=svg)](https://circleci.com/gh/iamkhush/coffeeswap)
+
 ## How to install
 
 npm install
