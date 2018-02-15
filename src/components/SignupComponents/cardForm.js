@@ -35,7 +35,7 @@ class CheckoutForm extends React.Component {
             });
             return false;
           }
-          this.setState({error: '', isLoading: false});
+          this.setState({error: ''});
           this.props.payAndSignup(token);
         });
   }
