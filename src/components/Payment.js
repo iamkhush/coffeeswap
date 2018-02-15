@@ -9,7 +9,6 @@ import CreditCardForm from './SignupComponents/cardDetails'
 const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep, onLogin }) => {
 	const payAndSignup = (token) => {
         
-
         var data = JSON.stringify(fieldValues);
 
         axios.post('/api/payment/chargePayment', {token: token, formData: fieldValues})
@@ -44,7 +43,11 @@ const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep, onLogin }) =
 	return (
 		<div>
 			<Header h1="Payment Information" h2={<h3 className="getStartedColor">Last step!</h3>} />
-		    <CreditCardForm payAndSignup={payAndSignup} selectedPlan={fieldValues.plan} email={fieldValues.email}/>
+            <div className="container">
+		      <CreditCardForm payAndSignup={payAndSignup}
+                              selectedPlan={fieldValues.plan} 
+                              saveValues={saveValues} />
+            </div>
 	    </div>
 	)
 }

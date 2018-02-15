@@ -48,7 +48,12 @@ router.post('/userSignup', (req, res) => {
 		zipcode: req.body.zipcode,
 		country: req.body.country,
 		plan: req.body.plan,
-		charge_id: req.body.charge_id,				
+		charge_id: req.body.charge_id,
+		billing_name: req.body.billing_name,
+	    billing_address: req.body.billing_address,
+	    billing_city: req.body.billing_city,
+	    billing_country: req.body.billing_country,
+	    billing_zipcode: req.body.billing_zipcode	
 	});
 		
 	account.save( err => {

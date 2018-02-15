@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { GetStarted, Shipping, Payment } from 'components';
 
@@ -70,7 +71,7 @@ class SignupPage extends React.Component {
 }
 
 SignupPage.propTypes = {
-  onLogin: React.PropTypes.func,
+  onLogin: PropTypes.func.isRequired,
 };
 
 SignupPage.defaultProps = {

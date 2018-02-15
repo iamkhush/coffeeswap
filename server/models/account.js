@@ -18,7 +18,12 @@ const Account = new Schema({
     plan:           String,
     charge_id:      String,
     created:        { type: Date, default: Date.now },
-    // last_logged_in: Date
+    last_logged_in: Date,
+    billing_name:   String,
+    billing_address:String,
+    billing_city:   String,
+    billing_country:String,
+    billing_zipcode:String
 });
 
 // generates hash

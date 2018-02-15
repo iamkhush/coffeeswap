@@ -37,6 +37,7 @@ class Shipping extends React.Component {
         this.editAddress = (event) => {
             let inputName = event.currentTarget.name;
             let address = {};
+            console.log(inputName);
             address[inputName] = event.currentTarget.value;
             if (inputName == 'email'){
                 if (EMAIL_REGEXP.test(address[inputName])) {
@@ -56,14 +57,12 @@ class Shipping extends React.Component {
             } else if(inputName == 'zipcode'){
                 if (ZIPCODE_REGEXP.test(address[inputName])) {
                     this.props.saveValues(address);
-                    // this.setState({error: {zipcode: false}});
                     this.setState({
                         error: update(this.state.error, {
                             zipcode: { $set: false }
                         })
                     })
                 } else {
-                    // this.setState({error: {zipcode: true}});
                     this.setState({
                         error: update(this.state.error, {
                             zipcode: { $set: true }
@@ -73,14 +72,12 @@ class Shipping extends React.Component {
             }else if (inputName == 'password'){
                 if (PASSWORD_REGEXP.test(address[inputName])) {
                     this.props.saveValues(address);
-                    // this.setState({error: {zipcode: false}});
                     this.setState({
                         error: update(this.state.error, {
                             password: { $set: false }
                         })
                     })
                 } else {
-                    // this.setState({error: {zipcode: true}});
                     this.setState({
                         error: update(this.state.error, {
                             password: { $set: true }

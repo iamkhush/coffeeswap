@@ -87,3 +87,15 @@ body {
 .write .card-action {
     text-align: right;
 }
+
+.orange {
+  color:'#7a766f';
+}
+
+.green {
+  color: green;
+}
+
+.form-padding {
+  padding-top: 25px;
+}
