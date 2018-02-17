@@ -3,8 +3,6 @@ import ReactTooltip from 'react-tooltip'
 import { injectStripe, CardElement, CardNumberElement, CardCVCElement,
          PostalCodeElement, CardExpiryElement } from 'react-stripe-elements';
 
-import '../../style.css';
-
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);

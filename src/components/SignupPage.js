@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { GetStarted, Shipping, Payment } from 'components';
+import { GetStarted, Shipping, Payment } from '../components';
 
 class SignupPage extends React.Component {
     constructor(props) {
@@ -14,6 +14,7 @@ class SignupPage extends React.Component {
         this.saveValues = (fields) => {
           this.fieldValues = Object.assign({}, this.fieldValues, fields);
           this.setState({count : Object.keys(this.fieldValues).length});
+          console.log(this.fieldValues);
           return this.fieldValues;
         };
 
