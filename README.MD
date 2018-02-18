@@ -1,6 +1,7 @@
 # Coffee-Swap-site
 
 [![CircleCI](https://circleci.com/gh/iamkhush/coffeeswap.svg?style=svg)](https://circleci.com/gh/iamkhush/coffeeswap)
+[![Coverage Status](https://coveralls.io/repos/github/iamkhush/coffeeswap/badge.svg?branch=master)](https://coveralls.io/github/iamkhush/coffeeswap?branch=master)
 
 ## How to install
 

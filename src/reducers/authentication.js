@@ -1,9 +1,9 @@
-import * as types from 'actions/ActionTypes';
+import * as types from '../actions/ActionTypes';
 import update from 'immutability-helper';
 
 import initialState from './initialState';
 
-export function authentication(state = initialState, action) {
+export function authReducer(state = initialState, action) {
     switch(action.type) {
         /* LOGIN */
         case types.AUTH_LOGIN:

@@ -1,11 +1,11 @@
-import { authentication } from './authentication';
-import * as types from 'actions/ActionTypes';
+import { authReducer } from './authentication';
+import * as types from '../actions/ActionTypes';
 import initialState from './initialState';
 import update from 'immutability-helper';
 
 import { combineReducers } from 'redux';
 
-const otherMethods = function (state = initialState, action) {
+const otherReducers = function (state = initialState, action) {
 	switch(action.type) {
         case types.AUTH_UPDATE:
             return update(state, {
@@ -46,6 +46,6 @@ const otherMethods = function (state = initialState, action) {
 }
 
 export default combineReducers({
-    authentication,
-    otherMethods
+    authReducer,
+    otherReducers
 });
