@@ -7,7 +7,7 @@ import Header from './SignupComponents/header'
 import Footer from './SignupComponents/footer'
 
 
-const getStarted = ({ fieldValues, nextStep, saveValues, currentFieldCount, maxFieldsCount, randomSelection }) => {
+const getStarted = ({ ...props }) => {
     const maxValuesInGetStarted = 3;
 
     const selectType = (event) => {
@@ -32,7 +32,7 @@ const getStarted = ({ fieldValues, nextStep, saveValues, currentFieldCount, maxF
         <div>
             <Header h1="Get Started" h2={
                 <div><p>First, complete these three steps to tell us about your coffee preferences.</p>
-                <a onClick={randomSelection} href="javascript:void(0)"> Not sure or want a surprise? Click here to choose default settings</a>
+                <a onClick={props.randomSelection} href="javascript:void(0)"> Not sure or want a surprise? Click here to choose default settings</a>
                 </div>} />
             <form method="GET" action="/shipping">
                 <RoastTypeForm selectType={selectType} />            
@@ -41,9 +41,9 @@ const getStarted = ({ fieldValues, nextStep, saveValues, currentFieldCount, maxF
                 <br/><br/>
                 <RoastLocationForm selectLocation={selectLocation} />                
             </form>
-            <Footer maxFieldsCount={maxFieldsCount} currentFieldCount={currentFieldCount} 
-                    maxValuesInThis={maxValuesInGetStarted} 
-                    nextStep={nextStep} h1="Continue to Shipping Information" />
+            <Footer maxFieldsCount={props.maxFieldsCount} currentFieldCount={props.currentFieldCount} 
+                    maxValuesInThis={props.maxValuesInGetStarted} 
+                    nextStep={props.nextStep} h1="Continue to Shipping Information" />
         </div>
     );
 };

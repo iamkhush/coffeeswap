@@ -31,6 +31,9 @@ jobs:
           name: test
           command: npm test
 
+      - run:
+          name: code coverage
+          command: npm run coverage
 
 
 

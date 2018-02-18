@@ -14,7 +14,6 @@ class SignupPage extends React.Component {
         this.saveValues = (fields) => {
           this.fieldValues = Object.assign({}, this.fieldValues, fields);
           this.setState({count : Object.keys(this.fieldValues).length});
-          console.log(this.fieldValues);
           return this.fieldValues;
         };
 
