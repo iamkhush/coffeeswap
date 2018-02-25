@@ -36,9 +36,9 @@ class Profile extends React.Component{
 
 const mapStateToProps = (state, currentuser) => {
     return {
-        status: state.authentication.updated.status,
-        currentuser: state.authentication.status.currentUser,
-        info: state.authentication.userinfo,
+        status: state.authReducer.updated.status,
+        currentuser: state.authReducer.status.currentUser,
+        info: state.authReducer.userinfo,
     };
 };
 

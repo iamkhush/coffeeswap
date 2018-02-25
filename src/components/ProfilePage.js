@@ -159,7 +159,7 @@ ProfilePage.defaultProps = {
 };
 const mapStateToProps = (state) => {
     return {
-        thisuser: state.authentication.status.currentUser,
+        thisuser: state.authReducer.status.currentUser,
     };
 }
 // export default ProfilePage;

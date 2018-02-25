@@ -92,7 +92,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        status: state.authentication.status
+        status: state.authReducer.status
     };
 };
 

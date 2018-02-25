@@ -123,7 +123,7 @@ class Shipping extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isUnique: state.otherMethods.userinfo.unique
+        isUnique: state.otherReducers.userinfo.unique
     };
 };
 
