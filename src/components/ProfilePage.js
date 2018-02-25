@@ -34,9 +34,9 @@ class ProfilePage extends React.Component {
             //window.location = '/home';
         })
         .catch((error)=>{
-            window.alert('Get User Info Failure!');
-            window.console.log(error);
-            //window.location = '/home';
+            // window.alert('Get User Info Failure!');
+            // window.console.log(error);
+            window.location = '/';
         })
     }
 
