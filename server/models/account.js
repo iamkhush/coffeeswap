@@ -27,7 +27,7 @@ const Account = new Schema({
 });
 
 // generates hash
-Account.methods.generateHash = function(password) {
+Account.statics.generateHash = function(password) {
     return bcrypt.hashSync(password, 8);
 };
 

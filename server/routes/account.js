@@ -87,7 +87,7 @@ router.post('/signin', (req, res) => {
             }
     
             // CHECK WHETHER THE PASSWORD IS VALID
-            if(!account.validateHash(req.body.password)) {
+            if(!account.validateHash(Account.generateHash(req.body.password))) {
                 return res.status(401).json({
                     error: "LOGIN FAILED",
                     code: 1

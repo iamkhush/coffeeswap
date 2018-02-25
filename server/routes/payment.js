@@ -37,7 +37,7 @@ router.post('/userSignup', (req, res) => {
 
 	let account = new Account({
 		username: req.body.username,
-		password: req.body.password,
+		password: Account.generateHash(req.body.password),
 		roastType: req.body.roastType,
 		roastLocation: req.body.roastLocation,
 		roastByDate: req.body.roastByDate,
@@ -86,8 +86,8 @@ router.post('/userSignin', (req, res) => {
 		}
 
 		// CHECK WHETHER THE PASSWORD IS VALID
-		// if(!account.validateHash(req.body.password)) {
-		if (account.password != req.body.password) {
+		if(!account.validateHash(req.body.password)) {
+		// if (account.password != pw) {
 			return res.status(401).json({
 				error: "LOGIN FAILED",
 				code: 1
