@@ -4,7 +4,7 @@ import YearlyPlan from './yearlyPlan';
 
 const Plans = ({selectPlan}) => {
 	return (
-		<div className="planfrom">
+		<div className="planform">
             <div className= "row">
                 <div className="col-lg-8 col-lg-offset-2">
                     <h3 className="getStartedColor lo-ce toppadding">And if you'd like to join for a Month or a Year:</h3>
@@ -16,7 +16,7 @@ const Plans = ({selectPlan}) => {
 	                	<div className="panel panel-default panel-pricing">
 	                		<YearlyPlan />	
 		                	<div className="panel-footer">
-                				<a onClick={selectPlan} data-plan="yearly" className="btn btn-lg btn-block btn-success">Select Yearly</a>
+                				<a style={{backgroundColor:'#f4bc42'}} onClick={selectPlan} data-plan="yearly" className="btn btn-lg btn-block btn-success">Select Yearly</a>
             				</div>
     					</div>
     				</div>
