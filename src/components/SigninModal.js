@@ -61,7 +61,6 @@ class SigninModal extends React.Component {
                                     <input 
                                         className="form-control"
                                         type="text"
-                                        id="example-text-input"
                                         name="username"
                                         value={this.state.username}
                                         onChange={this.handleChange}
@@ -73,8 +72,7 @@ class SigninModal extends React.Component {
                                 <div className="col-2">
                                     <input 
                                         className="form-control" 
-                                        type="password" 
-                                        id="example-text-input" 
+                                        type="password"  
                                         name="password"
                                         value={this.state.password}
                                         onChange={this.handleChange}

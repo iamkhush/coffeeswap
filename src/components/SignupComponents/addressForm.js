@@ -7,7 +7,7 @@ class Address extends React.Component {
 
 	render() {
 		return (
-			<section style={{marginLeft:'10%',marginRight:'10%',marginBottom:'10%'}}>
+			<div className="row">
 		        <div className="col-lg-2 col-lg-offset-3">
 		            <div className="form-group row">
 			            <label htmlFor="username" className="getStartedColor col-3 col-form-label">Username</label>
@@ -360,7 +360,7 @@ class Address extends React.Component {
 						</div>
 	                </div>
 		        </div>
-		    </section>
+		    </div>
 		)
 	};
 };

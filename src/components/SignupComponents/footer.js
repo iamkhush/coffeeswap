@@ -6,7 +6,7 @@ const Footer = ({nextStep, h1='', maxFieldsCount, currentFieldCount, maxValuesIn
 	return (
 		<section>
 			if (h1!='') {
-		    <div className="row" style={{backgroundColor:'#fff',padding:'30px',marginLeft:'10%',marginRight:'10%',marginTop:'15%'}}>
+		    <div className="row" style={{backgroundColor:'#fff',padding:'30px',marginLeft:'10%',marginRight:'10%',marginTop:'2%'}}>
                 <div className="col-lg-8" style={{textAlign:'right'}}>
                     <button disabled={!showNext} onClick={nextStep} className="btn btn-default2 btn-lg">{h1}</button>
                 </div>

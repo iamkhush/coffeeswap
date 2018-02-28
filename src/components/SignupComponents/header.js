@@ -12,7 +12,7 @@ const Header = ({h1, h2=''}) => {
                         </div>
                         <div className="col-lg-4 col-lg-offset-1">
                             <a href="/">
-                                <img className="brand-heading-3" src="img/CoffeeSwap_ICON_(white).png" style={{width:'15%',height:'15%'}} />
+                                <img className="brand-heading-3" src="img/CoffeeSwap_ICON_(black).png" style={{width:'15%',height:'15%'}} />
                             </a>
                         </div>
                     </div>

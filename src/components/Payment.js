@@ -42,7 +42,7 @@ const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep, onLogin }) =
 
 	return (
 		<div>
-			<Header h1="Payment Information" h2={<h3 className="getStartedColor">Last step!</h3>} />
+			<Header h1="Payment Information" h2={<h3 className="getStartedColor">Credit Card Information</h3>} />
             <div className="container">
 		      <CreditCardForm payAndSignup={payAndSignup}
                               selectedPlan={fieldValues.plan} 
