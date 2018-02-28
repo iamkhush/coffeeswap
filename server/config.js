@@ -4,6 +4,7 @@ const fs = require('fs');
 // Mongo and MongoExpress config
 defaultConfig.mongodb.connectionString='mongodb://localhost:27017/coffeedb';
 defaultConfig.mongodb.admin=true;
+defaultConfig.mongodb.whitelist=['coffeedb'];
 defaultConfig.basicAuth = {
     username: 'admin', // not to be included for safety concerns
     password: 'admin'

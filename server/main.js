@@ -33,7 +33,7 @@ db.once('open', () => { console.log('Connected to mongodb server'); });
 mongoose.connect(config.mongodb.connectionString, {useMongoClient: true});
 
 /* mongo express admin */
-app.use('/mongo_express', mongo_express(config));
+app.use('/admin', mongo_express(config));
 
 /* use session */
 app.use(session({
