@@ -27,7 +27,7 @@ class ProfilePage extends React.Component {
             window.alert('Successfuly GetInfo!');
             window.console.log("userinfo: "+ response.data.info);
             this.setState({
-                editmode: "plan",
+                editmode: "",
                 address: response.data.info.address,
                 plan: response.data.info.plan,
             });
@@ -137,13 +137,16 @@ class ProfilePage extends React.Component {
                     </div>
                 </div>
                 <hr />
-                <div className="row">
-                    <h3 className="text-center getStartedColor">{ this.state.editmode == "address" ? "AddressSetting" : "Payment Plan Settings" }</h3>
-                    { this.state.editmode == "address" ? AddressArea : PlanArea }
-                    <div className="col-lg-10 col-lg-offset-5 getStartedColor pro_save">
-                        <a onClick={this.handleUpdate} className="btn btn-default2 btn-lg" >Save Changes</a>
+                { this.state.editmode != "" ? (
+                    <div className="row">
+                        <h3 className="text-center getStartedColor">{ this.state.editmode == "address" ? "AddressSetting" : "Payment Plan Settings" }</h3>
+                        { this.state.editmode == "address" ? AddressArea : '' }
+                        { this.state.editmode == "plan" ? PlanArea : '' }
+                        <div className="col-lg-10 col-lg-offset-5 getStartedColor pro_save">
+                            <a onClick={this.handleUpdate} className="btn btn-default2 btn-lg" >Save Changes</a>
+                        </div>
                     </div>
-                </div>
+                ) : '' }
             </div>            
         )
     }
