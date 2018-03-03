@@ -16,7 +16,7 @@ class Header extends React.Component {
 
         const logoutButton =(
             <li>
-                <a onClick={this.props.onLogout} className="nav-acc">{this.props.currentuser}&nbsp;&nbsp;Sign Out</a>
+                <a onClick={this.props.onLogout} className="nav-acc">Sign Out</a>
             </li>             
         );
 
