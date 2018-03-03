@@ -42,7 +42,7 @@ class AboutPage extends React.Component {
                                         </p>
                                         <h3>//How much does it cost?</h3>
                                         <p className="ab-p">
-                                            We're a subscription service, so it'll depend on if you want a month-to-month subscription, or a discounted yearly one. Take a look at our pricing <a href="/get-started">here</a>.
+                                            We're a subscription service, so it'll depend on if you want a month-to-month subscription, or a discounted yearly one. Take a look at our pricing <a href="/signup">here</a>.
                                         </p>
                                         <h3>//Where do I get the coffee to swap?</h3>
                                         <p className="ab-p">
@@ -54,7 +54,7 @@ class AboutPage extends React.Component {
                                         </p>
                                         <h3>//Can I give this as a gift?</h3>
                                         <p className="ab-p">
-                                            Absolutely! Gift this to your mother, neighboor, dentist, or barista. Give them a chance to experience something new, and share what they know. Sign them up <a href="/get-started">here</a>. (They'll be able to fill out their own coffee preferences when they redeem their gift).
+                                            Absolutely! Gift this to your mother, neighboor, dentist, or barista. Give them a chance to experience something new, and share what they know. Sign them up <a href="/signup">here</a>. (They'll be able to fill out their own coffee preferences when they redeem their gift).
                                         </p>
                                         <h6> Still have questions? Email me: <a href="mailto:conner@thecoffeeswap.com">conner@thecoffeeswap.com</a></h6><br/>
                                         <div className="row">
