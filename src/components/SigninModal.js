@@ -54,7 +54,7 @@ class SigninModal extends React.Component {
                             </button>
                             <h3>Sign In</h3>
                             <div className="form-group row">
-                                <label htmlFor="username" className="col-3 col-form-label co-gr">UserName</label>
+                                <label htmlFor="username" className="col-3 col-form-label co-gr">Username</label>
                                 <div className="col-2">
                                     <input 
                                         className="form-control"
