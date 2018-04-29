@@ -6,7 +6,7 @@ class ProfilePage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            editmode: "plan",
+            editmode: "",
             address: "Please input your address",
             plan: "Please input your plan",
         }
@@ -22,9 +22,9 @@ class ProfilePage extends React.Component {
     componentDidMount(){
         
         // window.alert(this.props.thisuser);
-        axios.post('/api/account/getprofileinfo', {username: 'caesar'})
+        axios.post('/api/account/getprofileinfo')
         .then((response) => {
-            window.alert('Successfuly GetInfo!');
+            // window.alert('Successfuly GetInfo!');
             window.console.log("userinfo: "+ response.data.info);
             this.setState({
                 editmode: "",
@@ -35,9 +35,11 @@ class ProfilePage extends React.Component {
         })
         .catch((error)=>{
             // window.alert('Get User Info Failure!');
-            // window.console.log(error);
+            window.console.log(error);
             window.location = '/';
-        })
+        });
+
+        axios.get('/api/account/checkAndSetMatch');
     }
 
     setAddressMode(){

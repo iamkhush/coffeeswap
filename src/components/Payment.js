@@ -23,13 +23,14 @@ const PaymentForm = ({ fieldValues, nextStep, saveValues, prevStep, onLogin }) =
                             if(success) {
                                 window.location = '/profile'
                             } else {
-                                window.alert(success);
+                                // window.alert(success);
+                                window.console.log(success);
                             }
                         }
                     );
                 })
                 .catch((error)=>{
-                    window.alert('User Signup Failure!');
+                    // window.alert('User Signup Failure!');
                     window.console.log(error);
                 })
 

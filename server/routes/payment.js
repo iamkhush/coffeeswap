@@ -8,6 +8,17 @@ import Account from '../models/account';
 
 const router = express.Router();
 
+const requiresLogin = (req, res, next) => {
+    if (req.session === undefined || req.session.loginInfo === undefined) {
+        return res.status(401).json({
+            error: 1
+        });
+    } else {
+        next()
+    }
+};
+
+
 router.post('/chargePayment', (req, resp) => {
 	const stripe = stripePackage('sk_test_xKO56PkUDiyzGXTbQLuAQoq9');
 	const stripePlan = req.body.formData.plan == 'monthly' ? 1:2;
@@ -69,8 +80,8 @@ router.post('/userSignup', (req, res) => {
 
 router.post('/userSignin', (req, res) => {
 
-	console.log("request body:");
-	console.log(req.body);
+	// console.log("request body:");
+	// console.log(req.body);
 	var id = req.body.username;
 	var pw = req.body.password;
 
@@ -95,8 +106,7 @@ router.post('/userSignin', (req, res) => {
 		}
 
 		// ALTER SESSION
-		let session = req.session;
-		session.loginInfo = {
+		req.session.loginInfo = {
 			_id: account._id,
 			username: account.username,
 			plan: account.plan,

@@ -11,14 +11,12 @@ class CheckoutForm extends React.Component {
       error: '',
       name: '',
       isLoading: false,
-      showAddressForm: false,
-
+      showAddressForm: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.toggleShowAddressForm = this.toggleShowAddressForm.bind(this);
-
   }
 
   handleSubmit(ev){

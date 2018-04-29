@@ -11,7 +11,7 @@ class SigninModal extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
+        // this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     handleChange(e) {
@@ -27,23 +27,21 @@ class SigninModal extends React.Component {
         this.props.onLogin(id, pw).then(
             (success) => {
                 if(!success) {
-                    this.setState({
-                        password: ''
-                    });
+                    this.setState({password: ''});
                 }
             }
         );
     }
 
-    handleKeyPress(e) {
-        if(e.charCode ===13 ){
-            if(this.props.mode) {
-                this.handleLogin();
-            } else {
-                this.handleRegister();
-            }
-        }
-    }
+        // handleKeyPress(e) {
+        //     if(e.charCode ===13 ){
+        //         if(this.props.mode) {
+        //             this.handleLogin();
+        //         } else {
+        //             this.handleRegister();
+        //         }
+        //     }
+        // }
 
     render() {
         return(

@@ -37,14 +37,14 @@ export function loginRequest(username, password) {
         // });
         return axios.post('/api/payment/userSignin', {"username": username, "password": password})
         .then((response) => {
-            window.console.log('Welcome'+response.data.user.address);
+            // window.console.log('Welcome'+response.data.user.address);
             var address = response.data.user.address;
             var plan = response.data.user.plan;
             dispatch(loginSuccess('test', address, plan));
         })
         .catch((error)=>{
-            window.console.log(error);
-            window.alert('User Signin Failure!');
+            // window.console.log(error);
+            // window.alert('User Signin Failure!');
             dispatch(loginFailure());
         })
     };
@@ -71,7 +71,6 @@ export function loginFailure() {
     };
 }
 
-/* REGISTER */
 /* REGISTER */
 export function registerRequest(username, password) {
     return (dispatch) => {

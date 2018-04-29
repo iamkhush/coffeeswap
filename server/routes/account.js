@@ -6,6 +6,18 @@ const router = express.Router();
 
 const UserNameRegex = /^[a-z0-9]+$/;
 
+const requiresLogin = (req, res, next) => {
+    // console.log(req, res, 'ssss');
+    if (req.session === undefined || req.session.loginInfo === undefined) {
+        // console.log(req, res, 'iininii');
+        return res.status(401).json({
+            error: 1
+        });
+    } else {
+        next()
+    }
+};
+
 /*
     ACCOUNT SIGNUP: POST /api/account/signup
     BODY SAMPLE: { "username": "test", "password": "test" }
@@ -111,13 +123,7 @@ router.post('/signin', (req, res) => {
 /*
     GET CURRENT USER INFO GET /api/account/getInfo
 */
-router.get('/getinfo', (req, res) => {
-    if(typeof req.session.loginInfo === "undefined") {
-        return res.status(401).json({
-            error: 1
-        });
-    }
-
+router.get('/getinfo', requiresLogin, (req, res) => {
     res.json({ info: req.session.loginInfo });
 });
 
@@ -137,7 +143,7 @@ router.post('/logout', (req, res) => {
         1: BAD USERNAME
         2. USER NOT EXISTS
 */
-router.post('/getprofileinfo', (req, res) => {
+router.post('/getprofileinfo', requiresLogin, (req, res) => {
     let username = req.session.loginInfo.username || '';
 
     if(!UserNameRegex.test(username)) {
@@ -168,7 +174,7 @@ router.post('/getprofileinfo', (req, res) => {
 
     });
 });
-router.post('/update', (req, res) => {
+router.post('/update', requiresLogin, (req, res) => {
     // CHECK USER EXISTANCE
     Account.findOne({ username: req.body.username }, (err, exists) => {
         if (err) throw err;
@@ -200,6 +206,52 @@ router.post('/checkusername', (req, res) => {
         if (err) throw err;
         return res.json({is_unique: !exists});
     })
+});
+
+
+/*
+    ACCOUNT SIGNIN: POST /api/account/checkAndSetMatch
+    ERROR CODES:
+        1: Not logged in
+*/
+router.get('/checkAndSetMatch', requiresLogin, (req, res) => {
+    Account.findOne({username: req.session.loginInfo.username}, (err, account) => {
+        if (err) res.status(500).send(err);
+        if (account.match) return res.send();
+        // if not match, then set match
+        const allMatches = Account.find({
+            $or: [
+                { roastType: account.roastType },
+                { roastByDate: account.roastByDate },
+                { roastLocation: account.roastLocation }
+            ],
+            _id: {$ne: account._id}
+        });  
+        const getRank = (item) => {
+            let rank = 0;
+            if (item.roastByDate === account.roastByDate) {
+                rank += 3;
+            }
+            if (item.roastType === account.roastType) {
+                rank += 2;
+            }
+            if (item.roastLocation === account.roastLocation) {
+                rank += 1;
+            }
+            return rank;
+        };
+        const compare = (a,b) => {
+            const rankA = getRank(a);
+            const rankB = getRank(b);
+            if (rankA === rankB) return 0;
+            return rankA > rankB ? 1: -1;
+        }
+        allMatches.sort(compare);
+        console.log('allMatches',allMatches);
+
+        account.set({match : allMatches[0]['id']});
+        res.send();
+    });
 });
 
 export default router;

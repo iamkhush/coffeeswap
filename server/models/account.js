@@ -23,7 +23,8 @@ const Account = new Schema({
     billing_address:String,
     billing_city:   String,
     billing_country:String,
-    billing_zipcode:String
+    billing_zipcode:String,
+    match: {type: Schema.Types.ObjectId, ref: 'Account'}
 });
 
 // generates hash
