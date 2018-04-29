@@ -36,7 +36,7 @@
     "formage": "^2.8.2",
     "helmet": "^3.9.0",
     "immutability-helper": "^2.6.4",
-    "moment": "^2.18.1",
+    "moment": "^2.22.1",
     "mongo-express": "^0.42.3",
     "mongoose": "^4.11.9",
     "morgan": "^1.8.2",
