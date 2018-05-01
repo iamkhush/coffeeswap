@@ -10,20 +10,20 @@ import Footer from './SignupComponents/footer'
 const getStarted = ({ ...props }) => {
     const maxValuesInGetStarted = 3;
 
-    const selectType = (event) => {
-        saveValues({roastType: event.currentTarget.getAttribute('data-roasttype')});
+    const selectType = function(event) {
+        props.saveValues({roastType: event.currentTarget.getAttribute('data-roasttype')});
         document.getElementsByClassName('roasttypeform')[0].querySelectorAll('img').forEach(function(el){el.classList.remove('roasttype-border')});
         event.currentTarget.classList.add('roasttype-border');
     }
 
     const selectDateImp = (event) => {
-        saveValues({roastByDate: event.currentTarget.innerText});
+        props.saveValues({roastByDate: event.currentTarget.innerText});
         document.getElementsByClassName('roastbydateform')[0].querySelectorAll('span').forEach(function(el){el.classList.remove('dateimportance-selected')});
         event.currentTarget.classList.add('dateimportance-selected');
     }
 
     const selectLocation = (event) => {
-        saveValues({roastLocation: event.currentTarget.getAttribute('data-location')});      
+        props.saveValues({roastLocation: event.currentTarget.getAttribute('data-location')});
         document.getElementsByClassName('roastlocationform')[0].querySelectorAll('img').forEach(function(el){el.classList.remove('roasttype-border')});
         event.currentTarget.classList.add('roasttype-border');
     }
