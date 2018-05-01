@@ -2,7 +2,6 @@ import app from './main';
 import mongoose from 'mongoose';
 import config from './config';
 import https from 'https';
-import mongo_express from 'mongo-express/lib/middleware';
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
 
@@ -15,9 +14,6 @@ const db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', () => { console.log('Connected to mongodb server'); });
 mongoose.connect(config.mongodb.connectionString, {useMongoClient: true});
-
-/* mongo express admin */
-app.use('/admin', mongo_express(config));
 
 
 if (config.httpsOptions){

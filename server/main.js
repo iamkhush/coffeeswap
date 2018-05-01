@@ -2,9 +2,11 @@ import express from 'express';
 import path from 'path';
 import api from './routes';
 import morgan from 'morgan'; // HTTP REQUEST LOGGER
+import mongo_express from 'mongo-express/lib/middleware';
 import bodyParser from 'body-parser'; // PARSE HTML BODY
 import session from 'express-session';
 import config from './config';
+
 
 const app = express();
 
@@ -28,6 +30,9 @@ app.use(session({
 }));
 
 app.use('/api', api);
+
+/* mongo express admin */
+app.use('/admin', mongo_express(config));
 
 /* support client-side routing */
 app.get('*', (req, res) => {

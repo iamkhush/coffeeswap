@@ -23,7 +23,7 @@ class ProfilePage extends React.Component {
         
         // window.alert(this.props.thisuser);
         axios.post('/api/account/getprofileinfo')
-        .then((response) => {
+        .then(response => {
             // window.alert('Successfuly GetInfo!');
             window.console.log("userinfo: "+ response.data.info);
             this.setState({
@@ -33,7 +33,7 @@ class ProfilePage extends React.Component {
             });
             //window.location = '/home';
         })
-        .catch((error)=>{
+        .catch(error => {
             // window.alert('Get User Info Failure!');
             window.console.log(error);
             window.location = '/';

@@ -219,38 +219,29 @@ router.get('/checkAndSetMatch', requiresLogin, (req, res) => {
         if (err) res.status(500).send(err);
         if (account.match) return res.send();
         // if not match, then set match
-        const allMatches = Account.find({
-            $or: [
-                { roastType: account.roastType },
-                { roastByDate: account.roastByDate },
-                { roastLocation: account.roastLocation }
-            ],
-            _id: {$ne: account._id}
-        });  
-        const getRank = (item) => {
-            let rank = 0;
-            if (item.roastByDate === account.roastByDate) {
-                rank += 3;
-            }
-            if (item.roastType === account.roastType) {
-                rank += 2;
-            }
-            if (item.roastLocation === account.roastLocation) {
-                rank += 1;
-            }
-            return rank;
-        };
-        const compare = (a,b) => {
-            const rankA = getRank(a);
-            const rankB = getRank(b);
-            if (rankA === rankB) return 0;
-            return rankA > rankB ? 1: -1;
-        }
-        allMatches.sort(compare);
-        console.log('allMatches',allMatches);
-
-        account.set({match : allMatches[0]['id']});
-        res.send();
+        const ag = Account.aggregate([
+            {"$match": { 
+                "$or": [
+                    { "roastType": account.roastType },
+                    { "roastByDate": account.roastByDate },
+                    { "roastLocation": account.roastLocation }
+                ],
+                "_id": {"$ne": account._id}
+            }},
+            {"$addFields": {"rank": {
+                "$sum": [
+                    {"$cond": [{ "$eq": ["$roastByDate", account.roastByDate]}, 3, 0]},
+                    {"$cond": [{ "$eq": ["$roastType", account.roastType]}, 2, 0]},
+                    {"$cond": [{ "$eq": ["$roastLocation", account.roastLocation]}, 1, 0]},
+                ]
+            }}},
+            {"$sort": { "rank": -1 }}
+        ]).then(allMatches => {
+            console.log('allMatches',allMatches[0]['_id']);
+            account.update({match: allMatches[0]['_id']}, () => {
+                return res.send();
+            })
+        });
     });
 });
 

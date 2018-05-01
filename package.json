@@ -38,7 +38,7 @@
     "immutability-helper": "^2.6.4",
     "moment": "^2.22.1",
     "mongo-express": "^0.42.3",
-    "mongoose": "^4.11.9",
+    "mongoose": "^4.13",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
     "prop-types": "^15.6.0",
