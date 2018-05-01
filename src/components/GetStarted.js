@@ -42,7 +42,7 @@ const getStarted = ({ ...props }) => {
                 <RoastLocationForm selectLocation={selectLocation} />                
             </form>
             <Footer maxFieldsCount={props.maxFieldsCount} currentFieldCount={props.currentFieldCount} 
-                    maxValuesInThis={props.maxValuesInGetStarted} 
+                    maxValuesInThis={maxValuesInGetStarted} 
                     nextStep={props.nextStep} h1="Continue to Shipping Information" />
         </div>
     );
