@@ -75,7 +75,7 @@ const ShippingDetails = ({...props}) => {
 				  </div>
 				  <label  htmlFor="zipcode" className="getStartedColor col-3 col-form-label">Zip Code</label>
 				  <div className="col-3">
-				    <input onChange={props.handleInputChange} className="form-control" name="billing_zipcode" type="text" required />
+				    <input onChange={props.handleInputChange} className="form-control" name="billing_zipcode" type="number" max="99999" required />
 				  </div>
 				  <label  htmlFor="country" className="getStartedColor col-3 col-form-label">Country</label>
 				  <div className="col-3">

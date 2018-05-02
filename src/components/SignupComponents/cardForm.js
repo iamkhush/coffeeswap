@@ -21,6 +21,10 @@ class CheckoutForm extends React.Component {
 
   handleSubmit(ev){
     ev.preventDefault();
+    if (this.state.name.length == 0) {
+      this.setState({error: 'Please enter your complete name'});
+      return false;
+    }
     this.setState({isLoading: true});
     this.props.stripe.createToken({name: this.state.name})
       .then((token) => {
@@ -79,7 +83,7 @@ class CheckoutForm extends React.Component {
             </div>
             <div className="input-group col-lg-12 form-padding">
               <input className="form-control" type="text" name="billing_name" 
-                      onChange={this.handleInputChange} placeholder="Name" />
+                      onChange={this.handleInputChange} placeholder="Name" required />
             </div>
           </div>
         </div>
