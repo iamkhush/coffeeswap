@@ -3,8 +3,8 @@ import React from 'react';
 class AboutPage extends React.Component {
     render() {
         return(
-            <header className="about">
-                <div className="about-body">
+            <div>
+                <header className="about-body">
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
@@ -18,7 +18,10 @@ class AboutPage extends React.Component {
                                 </div>
                             </div>
                         </div>
-
+                    </div>
+                </header>
+                <header className="faq">
+                    <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
                                 <h1 className="intro-text">Frequently Asked Questions</h1>
@@ -67,8 +70,8 @@ class AboutPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
-            </header>
+                </header>
+            </div>
         )
     }
 }
