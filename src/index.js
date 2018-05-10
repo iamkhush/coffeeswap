@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-97279473-1');
 
 // Router
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
@@ -15,11 +18,15 @@ import thunk from 'redux-thunk';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
+function fireTracking() {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+}
+
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={browserHistory} onUpdate={fireTracking}>
             <Route path="/" component={App}>
                 <IndexRoute component={Home}/>
                 <Route path="home" component={Home}/>
