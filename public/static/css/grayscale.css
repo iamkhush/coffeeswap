@@ -619,6 +619,10 @@ background-color:transparent;border:none
 }
 
 .faq {
-    background-color: #8181b7;
+    background-color: #a7b5ce;
     text-align: center;
+}
+
+.signupBox {
+    padding: 4%;
 }

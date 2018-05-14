@@ -60,7 +60,7 @@ class AboutPage extends React.Component {
                                             Absolutely! Gift this to your mother, neighboor, dentist, or barista. Give them a chance to experience something new, and share what they know. Sign them up <a href="/signup">here</a>. (They'll be able to fill out their own coffee preferences when they redeem their gift).
                                         </p>
                                         <h6> Still have questions? Email me: <a href="mailto:conner@thecoffeeswap.com">conner@thecoffeeswap.com</a></h6><br/>
-                                        <div className="row">
+                                        <div className="row signupBox">
                                             <div className="col-lg-12 ab-su">
                                                 <a href="/signup" className="btn btn-default btn-lg">Sign Up Now</a>
                                             </div><br/><br/>
