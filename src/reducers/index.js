@@ -1,11 +1,11 @@
 import { authReducer } from './authentication';
 import * as types from '../actions/ActionTypes';
-import initialState from './initialState';
+import { updateState } from './initialState';
 import update from 'immutability-helper';
 
 import { combineReducers } from 'redux';
 
-const otherReducers = function (state = initialState, action) {
+const otherReducers = function (state = updateState, action) {
 	switch(action.type) {
         case types.AUTH_UPDATE:
             return update(state, {
@@ -17,7 +17,8 @@ const otherReducers = function (state = initialState, action) {
         case types.AUTH_UPDATE_SUCCESS:
             return update(state, {
                 updated: {
-                    status: { $set: 'SUCCESS' }
+                    status: { $set: 'SUCCESS' },
+                    error: { $set: -1 }
                 }
             });
         case types.AUTH_UPDATE_FAILURE:
@@ -25,19 +26,6 @@ const otherReducers = function (state = initialState, action) {
                 updated: {
                     status: { $set: 'FAILURE' },
                     error: { $set: action.error }
-                }
-            });
-        /* Check Username */
-        case types.AUTH_CHECK_USERNAME_RESPONSE:
-            return update(state, {
-                userinfo: {
-                	unique: { $set: action.result }
-                }
-            });
-        case types.AUTH_CHECK_USERNAME_FAILURE:
-            return update(state, {
-                userinfo: {
-                	unique: { $set: false }
                 }
             });
         default:

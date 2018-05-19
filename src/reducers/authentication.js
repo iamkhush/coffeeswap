@@ -1,9 +1,9 @@
 import * as types from '../actions/ActionTypes';
 import update from 'immutability-helper';
 
-import initialState from './initialState';
+import { authState } from './initialState';
 
-export function authReducer(state = initialState, action) {
+export function authReducer(state = authState, action) {
     switch(action.type) {
         /* LOGIN */
         case types.AUTH_LOGIN:
@@ -52,7 +52,7 @@ export function authReducer(state = initialState, action) {
                     error: { $set: action.error }
                 }
             });
-        // ?? why? 
+        // ?? why?
         case types.AUTH_GET_STATUS:
             return update(state, {
                 status: {
@@ -84,6 +84,19 @@ export function authReducer(state = initialState, action) {
                     status: { $set: false },
                     currentUser: { $set: '' },
                     isLoggedIn: {$set: false}
+                }
+            });
+        /* Check Username */
+        case types.AUTH_CHECK_USERNAME_RESPONSE:
+            return update(state, {
+                userinfo: {
+                	unique: { $set: action.result }
+                }
+            });
+        case types.AUTH_CHECK_USERNAME_FAILURE:
+            return update(state, {
+                userinfo: {
+                	unique: { $set: false }
                 }
             });
         default:

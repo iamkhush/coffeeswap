@@ -174,6 +174,7 @@ router.post('/getprofileinfo', requiresLogin, (req, res) => {
 
     });
 });
+
 router.post('/update', requiresLogin, (req, res) => {
     // CHECK USER EXISTANCE
     Account.findOne({ username: req.body.username }, (err, exists) => {
@@ -184,7 +185,6 @@ router.post('/update', requiresLogin, (req, res) => {
                 code: 3
             });
         }
-
         exists.plan = req.body.plan;
         exists.address = req.body.address;
         // SAVE IN THE DATABASE

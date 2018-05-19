@@ -1,4 +1,4 @@
-export default {
+const authState = {
     login:{
         status: 'INIT'
     },
@@ -11,13 +11,19 @@ export default {
         isLoggedIn: false,
         currentUser:''
     },
-    updated:{
-        status: 'INIT',
-        error: -1
-    },
     userinfo:{
         plan: 'testINIT',
         address: 'testINIT',
         unique: true
     }
 };
+
+
+const updateState = {
+	updated:{
+        status: 'INIT',
+        error: -1
+    },
+};
+
+export { authState, updateState };

@@ -159,4 +159,3 @@ export function logout() {
         type: AUTH_LOGOUT
     };
 }
-

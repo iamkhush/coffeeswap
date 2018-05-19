@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './SignupComponents/header';
 import { connect } from 'react-redux';
 import axios from 'axios';
+
 class ProfilePage extends React.Component {
     constructor(props){
         super(props);
@@ -141,7 +142,7 @@ class ProfilePage extends React.Component {
                 <hr />
                 { this.state.editmode != "" ? (
                     <div className="row">
-                        <h3 className="text-center getStartedColor">{ this.state.editmode == "address" ? "AddressSetting" : "Payment Plan Settings" }</h3>
+                        <h3 className="text-center getStartedColor">{ this.state.editmode == "address" ? "Set your address" : "Payment Plan Settings" }</h3>
                         { this.state.editmode == "address" ? AddressArea : '' }
                         { this.state.editmode == "plan" ? PlanArea : '' }
                         <div className="col-lg-10 col-lg-offset-5 getStartedColor pro_save">
