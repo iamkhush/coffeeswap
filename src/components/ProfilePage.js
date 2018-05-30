@@ -17,11 +17,11 @@ class ProfilePage extends React.Component {
         this.setPlanMode = this.setPlanMode.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
 
-        
+
     }
 
     componentDidMount(){
-        
+
         // window.alert(this.props.thisuser);
         axios.post('/api/account/getprofileinfo')
         .then(response => {
@@ -63,7 +63,7 @@ class ProfilePage extends React.Component {
         let address = this.state.address;
         let plan = this.state.plan;
         let user = this.props.currentuser;
-        window.alert('username: ' + user);
+        // window.alert('username: ' + user);
         this.props.onUpdate(user, address, plan).then(
             (success) => {
                 if(!success) {
@@ -76,39 +76,9 @@ class ProfilePage extends React.Component {
     }
     render(){
         const PlanArea = (
-            <div className="row">
-                <div className="col-lg-3 col-lg-offset-2">
-                    <div className="thumbnail thumbnailStyle">
-                        <label>
-                            <h4 className="getStartedColor">Monthly Plan ($22/Month)</h4>
-                        <div className="radio text-center">
-                            <input type="radio" name="plan" value="Monthly Plan" onClick={this.handleChange} 
-                            checked={this.state.plan=='monthly'} />
-                        </div>
-                        </label>
-                    </div>  
-                </div> 
-                <div className="col-lg-3">
-                    <div className="thumbnail thumbnailStyle">
-                            <label>
-                            <h4 className="getStartedColor">Yearly Plan ($20/Month - $240 Annual)</h4>
-                            <div className="radio text-center">
-                                <input type="radio" name="plan" value="Yearly Plan" onClick={this.handleChange}
-                                checked={this.state.plan=='yearly'} />
-                            </div>
-                            </label>
-                    </div>  
-                </div>
-                <div className="col-lg-3">
-                    <div className="thumbnail thumbnailStyle">
-                        <label>
-                        <h5 className="getStartedColor">Cancel Plan</h5>
-                        <div className="radio text-center">
-                            <input type="radio" name="plan" value="Cancel plan" onClick={this.handleChange}/>
-                        </div>
-                        </label>
-                    </div>
-                </div>
+            <div className="row text-center">
+            	<h4 className="getStartedColor">Please mail to <a href="mailto:contact@aoswebsolutions">contact@aoswebsolutions</a> for change of plans
+            	</h4>
             </div>
         )
 
@@ -116,6 +86,9 @@ class ProfilePage extends React.Component {
             <div className="row rowStyle">
                 <div className="col-lg-12">
                     <input type="text" className="form-control pro_address" name="address" onChange={this.handleChange} />
+                </div>
+                <div className="col-lg-10 col-lg-offset-5 getStartedColor pro_save">
+                    <a onClick={this.handleUpdate} className="btn btn-default2 btn-lg" >Save Changes</a>
                 </div>
             </div>
         )
@@ -145,19 +118,16 @@ class ProfilePage extends React.Component {
                         <h3 className="text-center getStartedColor">{ this.state.editmode == "address" ? "Set your address" : "Payment Plan Settings" }</h3>
                         { this.state.editmode == "address" ? AddressArea : '' }
                         { this.state.editmode == "plan" ? PlanArea : '' }
-                        <div className="col-lg-10 col-lg-offset-5 getStartedColor pro_save">
-                            <a onClick={this.handleUpdate} className="btn btn-default2 btn-lg" >Save Changes</a>
-                        </div>
                     </div>
                 ) : '' }
-            </div>            
+            </div>
         )
     }
 }
 
 ProfilePage.propTypes = {
     onUpdate: React.PropTypes.func,
-    currentuser: React.PropTypes.string    
+    currentuser: React.PropTypes.string
 };
 
 ProfilePage.defaultProps = {
