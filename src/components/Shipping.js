@@ -12,7 +12,7 @@ const PASSWORD_REGEXP = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 const EMAIL_REGEXP = new RegExp('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]' +
     '{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$');
 const ZIPCODE_REGEXP = new RegExp('^[0-9]{5}(?:-[0-9]{4})?$');
-    
+
 class Shipping extends React.Component {
     constructor(props) {
         super(props);
@@ -112,8 +112,8 @@ class Shipping extends React.Component {
                 <AddressForm editAddress={this.editAddress} showError={this.state.error}
                 />
                 <Plans selectPlan={this.selectPlan} />
-                <Footer maxFieldsCount={this.props.maxFieldsCount} currentFieldCount={this.props.currentFieldCount} 
-                        maxValuesInThis={this.maxValuesInShipping} 
+                <Footer maxFieldsCount={this.props.maxFieldsCount} currentFieldCount={this.props.currentFieldCount}
+                        maxValuesInThis={this.maxValuesInShipping}
                         nextStep={this.props.nextStep} h1="Continue to Payment Information"
                         error={this.state.error} />
             </div>
@@ -123,7 +123,7 @@ class Shipping extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isUnique: state.otherReducers.userinfo.unique
+        isUnique: state.authReducer.userinfo.unique
     };
 };
 
