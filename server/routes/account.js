@@ -4,7 +4,7 @@ import Account from '../models/account';
 
 const router = express.Router();
 
-const UserNameRegex = /^[a-z0-9]+$/;
+const UserNameRegex = /^[A-Za-z0-9]+$/;
 
 const requiresLogin = (req, res, next) => {
     // console.log(req, res, 'ssss');
